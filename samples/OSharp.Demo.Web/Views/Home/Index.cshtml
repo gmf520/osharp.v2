@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var data = ViewBag.Data;
+}
+
+<h2>Index</h2>
+<ol>
+    <li>组织机构数量：@data.OrganizationCount</li>
+    <li>用户数量：@data.UserCount</li>
+    <li>角色数量：@data.RoleCount</li>
+</ol>

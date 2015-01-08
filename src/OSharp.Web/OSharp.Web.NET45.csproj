@@ -240,7 +240,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="OSharp.Keys.snk" />
     <None Include="packages.OSharp.Web.NET45.config" />
   </ItemGroup>
