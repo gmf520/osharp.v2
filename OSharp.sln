@@ -40,6 +40,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{88A247
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{95964771-8E61-477C-9361-AD569DCE74BA}"
+	ProjectSection(SolutionItems) = preProject
+		docs\OSharp开发框架架构示图.png = docs\OSharp开发框架架构示图.png
+		docs\OSharp开发框架架构示图.vsd = docs\OSharp开发框架架构示图.vsd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
