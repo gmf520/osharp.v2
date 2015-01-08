@@ -76,19 +76,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="OSharp.Core">
-      <HintPath>..\..\packages\OSharp.Core.2.0.1\lib\net45\OSharp.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="OSharp.Core.Data.Entity">
-      <HintPath>..\..\packages\OSharp.Core.Data.Entity.2.0.1\lib\net45\OSharp.Core.Data.Entity.dll</HintPath>
-    </Reference>
-    <Reference Include="OSharp.Utility, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e7429fb96767d50d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\OSharp.Utility.2.0.2\lib\net40\OSharp.Utility.dll</HintPath>
-    </Reference>
-    <Reference Include="OSharp.Web">
-      <HintPath>..\..\packages\OSharp.Web.2.0.2\lib\net45\OSharp.Web.dll</HintPath>
-    </Reference>
     <Reference Include="Owin">
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
@@ -198,7 +185,24 @@
     <Compile Include="Services\Impl\IdentityService.Roles.cs" />
     <Compile Include="Services\Impl\IdentityService.Users.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\OSharp.Core.Data.Entity\OSharp.Core.Data.Entity.NET45.csproj">
+      <Project>{d58a373c-1a9c-4bf7-833d-427e4aef8502}</Project>
+      <Name>OSharp.Core.Data.Entity.NET45</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\OSharp.Core\OSharp.Core.NET45.csproj">
+      <Project>{f7c67c95-facb-4160-9a88-cb738e65e034}</Project>
+      <Name>OSharp.Core.NET45</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\OSharp.Utility\OSharp.Utility.csproj">
+      <Project>{946e0a0a-8280-46b3-893e-1b00a554ccab}</Project>
+      <Name>OSharp.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\OSharp.Web\OSharp.Web.NET45.csproj">
+      <Project>{d2ac8387-fc21-4e8e-810b-c0a637d44222}</Project>
+      <Name>OSharp.Web.NET45</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

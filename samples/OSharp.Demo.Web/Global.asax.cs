@@ -63,19 +63,10 @@ namespace OSharp.Demo.Web
 
         private static void DatabaseInitialize()
         {
-            DatabaseInitializer.Initialize();
-
             Assembly assembly = Assembly.GetExecutingAssembly();
             DatabaseInitializer.AddMapperAssembly(assembly);
 
-            //EF预热
-            using (CodeFirstDbContext context = new CodeFirstDbContext())
-            {
-                ObjectContext objectContext = ((IObjectContextAdapter)context).ObjectContext;
-                StorageMappingItemCollection mappingItemCollection = (StorageMappingItemCollection)objectContext.ObjectStateManager
-                    .MetadataWorkspace.GetItemCollection(DataSpace.CSSpace);
-                mappingItemCollection.GenerateViews(new List<EdmSchemaError>());
-            }
+            DatabaseInitializer.Initialize();
         }
 
         protected void Application_Error(object sender, EventArgs e)

@@ -9,6 +9,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Mapping;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -48,6 +52,13 @@ namespace OSharp.Core.Data.Entity
                 initializer = new MigrateDatabaseToLatestVersion<CodeFirstDbContext, MigrationsConfiguration>();
             }
             Database.SetInitializer(initializer);
+            
+            //EF预热
+            ObjectContext objectContext = ((IObjectContextAdapter)context).ObjectContext;
+            StorageMappingItemCollection mappingItemCollection = (StorageMappingItemCollection)objectContext.ObjectStateManager
+                .MetadataWorkspace.GetItemCollection(DataSpace.CSSpace);
+            mappingItemCollection.GenerateViews(new List<EdmSchemaError>());
+            context.Dispose();
         }
 
         /// <summary>
