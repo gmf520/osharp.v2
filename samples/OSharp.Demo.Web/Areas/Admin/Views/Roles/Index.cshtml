@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "角色信息列表";
+    Layout = "~/Areas/Admin/Views/Shared/_DataGridLayout.cshtml";
+
+    ViewBag.GridId = "roles";
+    ViewBag.GridDataUrl = Url.Action("GridData");
+}
+@section customScript
+{
+    <script type="text/javascript">
+        columns = [[
+            { field: "Id", title: "编号", width: 40, halign: "center", align: "right", sortable: true },
+            { field: "Name", title: "角色名", width: 150, sortable: true },
+            { field: "Remark", title: "角色描述", width: 150, sortable: true },
+            { field: "CreatedTime", title: "创建时间", width: 150, halign: "center", align: "center", sortable: true, formatter: function (value) { return $.osharp.tools.formatDate(value); } }
+        ]];
+    </script>
+}
