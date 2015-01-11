@@ -95,7 +95,7 @@ namespace OSharp.Utility.Extensions
         /// <param name="leftEqual"> 是否可等于上限（默认等于） </param>
         /// <param name="rightEqual"> 是否可等于下限（默认等于） </param>
         /// <returns> 是否介于 </returns>
-        public static bool IsBetween<T>(this IComparable<T> value, T start, T end, bool leftEqual = false, bool rightEqual = false)
+        public static bool IsBetween<T>(this IComparable<T> value, T start, T end, bool leftEqual = false, bool rightEqual = false) where T : IComparable
         {
             bool flag = leftEqual ? value.CompareTo(start) >= 0 : value.CompareTo(start) > 0;
             return flag && (rightEqual ? value.CompareTo(end) <= 0 : value.CompareTo(end) < 0);
@@ -109,7 +109,6 @@ namespace OSharp.Utility.Extensions
         /// <returns>JSON字符串</returns>
         public static string ToJsonString<T>(this T value)
         {
-            value.CheckNotNull("value");
             return JsonConvert.SerializeObject(value);
         }
 
@@ -131,12 +130,11 @@ namespace OSharp.Utility.Extensions
                 }
                 else
                 {
-                    expando.Add(property.Name, val); 
+                    expando.Add(property.Name, val);
                 }
             }
             return expando as ExpandoObject;
         }
-
         #endregion
     }
 }

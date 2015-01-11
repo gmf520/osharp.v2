@@ -51,25 +51,27 @@ namespace OSharp.Utility
         }
 
         /// <summary>
+        /// 验证指定值的断言表达式是否为真，不为真抛出<typeparam name="TException>"/>异常
+        /// </summary>
+        /// <typeparam name="T">要判断的值的类型</typeparam>
+        /// <typeparam name="TException">抛出的异常类型</typeparam>
+        /// <param name="value">要判断的值</param>
+        /// <param name="assertionFunc">要验证的断言表达式</param>
+        /// <param name="message">异常消息</param>
+        public static void Required<T, TException>(this T value, Func<T, bool> assertionFunc, string message) where TException : Exception
+        {
+            Require<TException>(assertionFunc(value), message);
+        }
+
+        /// <summary>
         /// 检查参数不能为空引用，否则抛出<see cref="ArgumentNullException"/>异常。
         /// </summary>
         /// <param name="value"></param>
         /// <param name="paramName">参数名称</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public static void CheckNotNull<T>(this T value, string paramName)
+        public static void CheckNotNull<T>(this T value, string paramName) where T : class
         {
-            Require<ArgumentNullException>((object)value != null, string.Format(Resources.ParameterCheck_NotNull, paramName));
-        }
-
-        /// <summary>
-        /// 检查Guid值不能为Guid.Empty，否则抛出<see cref="ArgumentException"/>异常。
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="paramName">参数名称。</param>
-        /// <exception cref="ArgumentException"></exception>
-        public static void CheckNotEmpty(this Guid value, string paramName)
-        {
-            Require<ArgumentException>(value != Guid.Empty, string.Format(Resources.ParameterCheck_NotEmpty_Guid, paramName));
+            Require<ArgumentNullException>(value != null, string.Format(Resources.ParameterCheck_NotNull, paramName));
         }
 
         /// <summary>
@@ -83,6 +85,17 @@ namespace OSharp.Utility
         {
             value.CheckNotNull(paramName);
             Require<ArgumentException>(value.Length > 0, string.Format(Resources.ParameterCheck_NotNullOrEmpty_String, paramName));
+        }
+
+        /// <summary>
+        /// 检查Guid值不能为Guid.Empty，否则抛出<see cref="ArgumentException"/>异常。
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="paramName">参数名称。</param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void CheckNotEmpty(this Guid value, string paramName)
+        {
+            Require<ArgumentException>(value != Guid.Empty, string.Format(Resources.ParameterCheck_NotEmpty_Guid, paramName));
         }
 
         /// <summary>

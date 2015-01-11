@@ -25,20 +25,6 @@ namespace OSharp.Utility.Extensions
         }
 
         /// <summary>
-        /// 判断类型是否为集合类型
-        /// </summary>
-        /// <param name="type">要处理的类型</param>
-        /// <returns>是返回True，不是返回False</returns>
-        public static bool IsEnumerable(this Type type)
-        {
-            if (type == typeof(string))
-            {
-                return false;
-            }
-            return typeof(IEnumerable).IsAssignableFrom(type);
-        }
-
-        /// <summary>
         /// 由类型的Nullable类型返回实际类型
         /// </summary>
         /// <param name="type"> 要处理的类型对象 </param>
@@ -114,6 +100,20 @@ namespace OSharp.Utility.Extensions
         public static T[] GetAttributes<T>(this MemberInfo memberInfo, bool inherit = false) where T : Attribute
         {
             return memberInfo.GetCustomAttributes(typeof(T), inherit).Cast<T>().ToArray();
+        }
+
+        /// <summary>
+        /// 判断类型是否为集合类型
+        /// </summary>
+        /// <param name="type">要处理的类型</param>
+        /// <returns>是返回True，不是返回False</returns>
+        public static bool IsEnumerable(this Type type)
+        {
+            if (type == typeof(string))
+            {
+                return false;
+            }
+            return typeof(IEnumerable).IsAssignableFrom(type);
         }
 
         /// <summary>
