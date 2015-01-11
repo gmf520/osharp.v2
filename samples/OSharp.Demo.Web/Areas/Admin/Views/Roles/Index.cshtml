@@ -4,15 +4,53 @@
 
     ViewBag.GridId = "roles";
     ViewBag.GridDataUrl = Url.Action("GridData");
+    ViewBag.NodeDataUrl = Url.Action("NodeData", "Organizations");
+    ViewBag.AddUrl = Url.Action("Add");
+    ViewBag.EditUrl = Url.Action("Edit");
+    ViewBag.DeleteUrl = Url.Action("Delete");
 }
 @section customScript
 {
     <script type="text/javascript">
         columns = [[
             { field: "Id", title: "编号", width: 40, halign: "center", align: "right", sortable: true },
-            { field: "Name", title: "角色名", width: 150, sortable: true },
-            { field: "Remark", title: "角色描述", width: 150, sortable: true },
+            { field: "Name", title: "角色名", width: 150, sortable: true, editor: { type: "validatebox", options: { required: true, validType: "length[1,50]" } } },
+            { field: "Remark", title: "角色描述", width: 150, sortable: true, editor: { type: "textarea", options: { validType: "length[1,500]" } } },
             { field: "CreatedTime", title: "创建时间", width: 150, halign: "center", align: "center", sortable: true, formatter: function (value) { return $.osharp.tools.formatDate(value); } }
         ]];
+
+        startfunction = function () {
+            //导出
+            function exportRoles() {
+                $.osharp.easyui.msg.info("导出角色数据");
+            }
+
+            toolbarData.push({ text: "导出", iconCls: "pic_50", handler: exportRoles });
+        };
+
+        endfunction = function () {
+            var $tree = $("#tree-@ViewBag.TreeId");
+            $tree.tree({
+                url: "@ViewBag.NodeDataUrl",
+                onSelect:function(node) {
+                    grid.datagrid({
+                        url: "@ViewBag.GridDataUrl/" + node.id
+                    });
+                }
+            });
+        };
     </script>
+}
+@section headHtml
+{
+    <div id="layout-@ViewBag.GridId" class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'west', split:true, minWidth:80, width:150, title:'组织机构'">
+            <ul id="tree-@ViewBag.TreeId" class="easyui-tree"></ul>
+        </div>
+        <div data-options="region:'center', border:false">
+}
+@section footHtml
+{
+        </div>
+    </div>
 }

@@ -94,18 +94,6 @@
             }
         };
 
-        var deleteRows = function () {
-            var selectRows = grid.datagrid("getSelections");
-            if (selectRows.length == 0) {
-                $.osharp.easyui.msg.tip("请先选中要删除的行。");
-                return;
-            }
-            var ids = $.Enumerable.From(selectRows).Select(function (m) { return m.Id; }).ToArray();
-            $.osharp.easyui.msg.confirm("是否要删除所有选中的行？此操作是不可恢复的。", null, function () {
-                $.post("@ViewBag.DeleteUrl", { ids: JSON.stringify(ids) }, ajaxResultHandler);
-            });
-        };
-
         function endEditing() {
             if (editIndex == undefined) {
                 return true;
@@ -127,6 +115,18 @@
             $.post("@ViewBag.EditUrl", { dtos: JSON.stringify(objs) }, ajaxResultHandler);
         }
 
+        var deleteRows = function () {
+            var selectRows = grid.datagrid("getSelections");
+            if (selectRows.length == 0) {
+                $.osharp.easyui.msg.tip("请先选中要删除的行。");
+                return;
+            }
+            var ids = $.Enumerable.From(selectRows).Select(function (m) { return m.Id; }).ToArray();
+            $.osharp.easyui.msg.confirm("是否要删除所有选中的行？此操作是不可恢复的。", null, function () {
+                $.post("@ViewBag.DeleteUrl", { ids: JSON.stringify(ids) }, ajaxResultHandler);
+            });
+        };
+
         function ajaxResultHandler(data) {
             if (data.Type == "Success") {
                 grid.datagrid("reload");
@@ -145,7 +145,7 @@
             }
             @if (toolbarItem.Contains("edit"))
             {
-                <text>
+            <text>
             { text: "编辑", iconCls: "icon-edit", handler: beginEdit },
             "-",
             </text>
@@ -301,7 +301,7 @@
     </script>
     @RenderSection("endScript", false)
 }
-@RenderBody()
+
 @RenderSection("headHtml", false)
 <div id="grid-@ViewBag.GridId"></div>
 @RenderSection("footHtml", false)

@@ -466,6 +466,7 @@
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Identity\OrganizationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\Identity\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\Identity\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -510,7 +511,9 @@
       <Name>OSharp.Web.NET45</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Organizations\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
