@@ -6,16 +6,13 @@
 //  <last-date>2014-07-17 17:34</last-date>
 // -----------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using OSharp.Core.Logging;
@@ -32,8 +29,18 @@ namespace OSharp.Core.Data.Entity
     {
         private static readonly Logger Logger = LogManager.GetLogger(typeof(CodeFirstDbContext));
 
+        /// <summary>
+        /// 初始化一个<see cref="CodeFirstDbContext"/>类型的新实例
+        /// </summary>
         public CodeFirstDbContext()
-            : base(GetConnectionStringName())
+            : this(GetConnectionStringName())
+        { }
+
+        /// <summary>
+        /// 使用连接名称或连接字符串 初始化一个<see cref="CodeFirstDbContext"/>类型的新实例
+        /// </summary>
+        public CodeFirstDbContext(string nameOrConnectionString)
+            : base(nameOrConnectionString)
         { }
 
         /// <summary>

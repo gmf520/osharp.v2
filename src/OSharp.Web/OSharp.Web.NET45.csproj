@@ -197,6 +197,8 @@
     </Compile>
     <Compile Include="Mvc\Binders\JsonBinder.cs" />
     <Compile Include="Mvc\Binders\StringTrimModelBinder.cs" />
+    <Compile Include="Mvc\Extensions\Caching\RecordWriter.cs" />
+    <Compile Include="Mvc\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Mvc\Filters\HandleAjaxErrorAttribute.cs" />
     <Compile Include="Mvc\Filters\NonRequireHttpsAttribute.cs" />
     <Compile Include="Mvc\Routing\LowerCaseUrlConverter.cs" />

@@ -73,7 +73,7 @@ namespace OSharp.Core.Data
             {
                 return false;
             }
-            return Id.Equals(entity.Id);
+            return Id.Equals(entity.Id) && CreatedTime.Equals(entity.CreatedTime);
         }
 
         /// <summary>
