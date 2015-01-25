@@ -6,6 +6,7 @@
 //  <last-date>2014-07-30 5:15</last-date>
 // -----------------------------------------------------------------------
 
+
 namespace OSharp.Utility.Data
 {
     /// <summary>
@@ -32,14 +33,7 @@ namespace OSharp.Utility.Data
             Message = message;
         }
 
-        /// <summary>
-        /// 初始化一个<see cref="OperationResult"/>类型的新实例
-        /// </summary>
-        public OperationResult(OperationResultType resultType, string message, object data)
-            : this(resultType, message)
-        {
-            Data = data;
-        }
+
 
         #endregion
 
@@ -55,11 +49,42 @@ namespace OSharp.Utility.Data
         /// </summary>
         public string Message { get; set; }
 
-        /// <summary>
-        /// 获取或设置 操作返回数据
-        /// </summary>
-        public object Data { get; set; }
+
 
         #endregion
+    }
+
+    /// <summary>
+    ///     业务操作结果信息类，对操作结果进行封装，带返回值
+    /// </summary>
+    public class OperationResult<T> : OperationResult
+    {
+        /// <summary>
+        /// 返回值 
+        /// </summary>
+        public T Value { get; set; }
+
+        public OperationResult(OperationResultType resultType)
+            : base(resultType)
+        {
+        }
+
+        public OperationResult(OperationResultType resultType, string message)
+            : base(resultType, message)
+        {
+        }
+
+
+
+        public OperationResult(OperationResultType resultType, string message, T value)
+            : base(resultType, message)
+        {
+            this.Value = value;
+        }
+
+
+
+
+
     }
 }
