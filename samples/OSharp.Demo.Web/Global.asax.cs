@@ -11,11 +11,13 @@ using System.Web.Mvc;
 using System.Web.Routing;
 
 using Autofac;
+using Autofac.Core;
 using Autofac.Integration.Mvc;
 
 using OSharp.Core;
 using OSharp.Core.Data;
 using OSharp.Core.Data.Entity;
+using OSharp.Demo.Web.Controllers;
 using OSharp.Demo.Web.Dtos;
 
 

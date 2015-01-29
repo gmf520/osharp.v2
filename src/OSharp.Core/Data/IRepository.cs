@@ -111,15 +111,6 @@ namespace OSharp.Core.Data
         int Update(TEntity entity);
 
         /// <summary>
-        /// 使用附带新值的实体更新指定实体属性的值，此方法不支持事务
-        /// </summary>
-        /// <param name="propertyExpresion">属性表达式，提供要更新的实体属性</param>
-        /// <param name="entities">附带新值的实体属性，必须包含主键</param>
-        /// <returns>操作影响的行数</returns>
-        /// <exception cref="System.NotSupportedException"></exception>
-        int Update(Expression<Func<TEntity, object>> propertyExpresion, params TEntity[] entities);
-
-        /// <summary>
         /// 以DTO为载体批量更新实体
         /// </summary>
         /// <typeparam name="TEditDto">更新DTO类型</typeparam>

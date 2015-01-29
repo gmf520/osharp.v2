@@ -66,7 +66,7 @@
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CssFormatter/PROPERTIES_STYLE/@EntryValue">SAME_LINE</s:String>
 	<s:String x:Key="/Default/CodeStyle/FileHeader/FileHeaderText/@EntryValue">-----------------------------------------------------------------------&#xD;
  &lt;copyright file="$FILENAME$" company="OSharp开源团队"&gt;&#xD;
-     Copyright (c) $CURRENT_YEAR$ OSharp. All rights reserved.&#xD;
+     Copyright (c) 2014-$CURRENT_YEAR$ OSharp. All rights reserved.&#xD;
  &lt;/copyright&gt;&#xD;
  &lt;last-editor&gt;最后修改人&lt;/last-editor&gt;&#xD;
  &lt;last-date&gt;$CURRENT_YEAR$-$CURRENT_MONTH$-$CURRENT_DAY$ $CURRENT_TIME$&lt;/last-date&gt;&#xD;

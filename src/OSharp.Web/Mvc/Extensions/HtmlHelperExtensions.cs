@@ -28,16 +28,30 @@ namespace OSharp.Web.Mvc.Extensions
         /// <param name="html"></param>
         /// <param name="cacheKey">缓存键</param>
         /// <param name="absoluteExpiration">绝对过期时间</param>
-        /// <param name="slidingExpiration">滑动过期时间</param>
         /// <param name="func">缓存无效时获取页面内容的委托</param>
         /// <returns></returns>
         public static string Cache(this HtmlHelper html,
             string cacheKey,
             DateTime absoluteExpiration,
+            Func<object> func)
+        {
+            return html.Cache(cacheKey, null, absoluteExpiration, System.Web.Caching.Cache.NoSlidingExpiration, func);
+        }
+
+        /// <summary>
+        /// View页面片断缓存
+        /// </summary>
+        /// <param name="html"></param>
+        /// <param name="cacheKey">缓存键</param>
+        /// <param name="slidingExpiration">滑动过期时间</param>
+        /// <param name="func">缓存无效时获取页面内容的委托</param>
+        /// <returns></returns>
+        public static string Cache(this HtmlHelper html,
+            string cacheKey,
             TimeSpan slidingExpiration,
             Func<object> func)
         {
-            return html.Cache(cacheKey, null, absoluteExpiration, slidingExpiration, func);
+            return html.Cache(cacheKey, null, System.Web.Caching.Cache.NoAbsoluteExpiration, slidingExpiration, func);
         }
 
         /// <summary>
@@ -73,17 +87,30 @@ namespace OSharp.Web.Mvc.Extensions
         /// <param name="html"></param>
         /// <param name="cacheKey">缓存键</param>
         /// <param name="absoluteExpiration">绝对过期时间</param>
-        /// <param name="slidingExpiration">滑动过期时间</param>
         /// <param name="action">缓存无效时执行的页面内容片断</param>
         public static void Cache(this HtmlHelper html,
             string cacheKey,
             DateTime absoluteExpiration,
+            Action action)
+        {
+            html.Cache(cacheKey, null, absoluteExpiration, System.Web.Caching.Cache.NoSlidingExpiration, action);
+        }
+        
+        /// <summary>
+        /// View页面片断缓存
+        /// </summary>
+        /// <param name="html"></param>
+        /// <param name="cacheKey">缓存键</param>
+        /// <param name="slidingExpiration">滑动过期时间</param>
+        /// <param name="action">缓存无效时执行的页面内容片断</param>
+        public static void Cache(this HtmlHelper html,
+            string cacheKey,
             TimeSpan slidingExpiration,
             Action action)
         {
-            html.Cache(cacheKey, null, absoluteExpiration, slidingExpiration, action);
+            html.Cache(cacheKey, null, System.Web.Caching.Cache.NoAbsoluteExpiration, slidingExpiration, action);
         }
-
+        
         /// <summary>
         /// View页面片断缓存
         /// </summary>
