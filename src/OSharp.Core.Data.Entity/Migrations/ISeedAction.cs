@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace OSharp.Core.Data.Entity.Migrations
 {
     /// <summary>
-    /// 数据迁移初始化种子数据操作基类
+    /// 初始化种子数据接口
     /// </summary>
     public interface ISeedAction
     {

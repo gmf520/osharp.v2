@@ -487,6 +487,7 @@
     <Compile Include="Models\Identity\UserExtend.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IIdentityContract.cs" />
+    <Compile Include="Services\Impl\IdentitySeedAction.cs" />
     <Compile Include="Services\Impl\IdentityService.cs" />
     <Compile Include="Services\Impl\IdentityService.Organization.cs" />
     <Compile Include="Services\Impl\IdentityService.Roles.cs" />

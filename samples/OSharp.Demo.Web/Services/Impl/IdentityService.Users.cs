@@ -38,8 +38,6 @@ namespace OSharp.Demo.Web.Services.Impl
         /// <returns>业务操作结果</returns>
         public OperationResult AddUsers(params UserDto[] dtos)
         {
-            var s = new string[] { }.AsQueryable();
-            s.Where()
             throw new NotImplementedException();
         }
 

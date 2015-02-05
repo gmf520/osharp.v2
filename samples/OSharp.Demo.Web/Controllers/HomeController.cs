@@ -21,9 +21,24 @@ namespace OSharp.Demo.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IIdentityContract _identityContract;
+
+        public HomeController(IIdentityContract identityContract)
+        {
+            _identityContract = identityContract;
+        }
+
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Home", new { area = "Admin" });
+            //return RedirectToAction("Index", "Home", new { area = "Admin" });
+            var data = new
+            {
+                OrganizationCount = _identityContract.Organizations.Count(),
+                UserCount = _identityContract.Users.Count(),
+                RoleCount = _identityContract.Roles.Count()
+            };
+            ViewBag.Data = data.ToDynamic();
+            return View();
         }
     }
 

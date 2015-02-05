@@ -17,8 +17,9 @@ using Autofac.Integration.Mvc;
 using OSharp.Core;
 using OSharp.Core.Data;
 using OSharp.Core.Data.Entity;
-using OSharp.Demo.Web.Controllers;
+using OSharp.Core.Data.Entity.Migrations;
 using OSharp.Demo.Web.Dtos;
+using OSharp.Demo.Web.Services.Impl;
 
 
 namespace OSharp.Demo.Web
@@ -67,6 +68,7 @@ namespace OSharp.Demo.Web
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             DatabaseInitializer.AddMapperAssembly(assembly);
+            CreateDatabaseIfNotExistsWithSeed.SeedActions.Add(new IdentitySeedAction());
 
             DatabaseInitializer.Initialize();
         }

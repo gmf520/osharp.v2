@@ -201,15 +201,6 @@ namespace OSharp.Core.Data
         Task<int> UpdateAsync(TEntity entity);
 
         /// <summary>
-        /// 异步使用附带新值的实体更新指定实体属性的值，此方法不支持事务
-        /// </summary>
-        /// <param name="propertyExpresion">属性表达式，提供要更新的实体属性</param>
-        /// <param name="entities">附带新值的实体属性，必须包含主键</param>
-        /// <returns>操作影响的行数</returns>
-        /// <exception cref="System.NotSupportedException"></exception>
-        Task<int> UpdateAsync(Expression<Func<TEntity, object>> propertyExpresion, params TEntity[] entities);
-
-        /// <summary>
         /// 异步查找指定主键的实体
         /// </summary>
         /// <param name="key">实体主键</param>

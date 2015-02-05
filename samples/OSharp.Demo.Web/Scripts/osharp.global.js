@@ -99,7 +99,7 @@
         group: function () {
             this.Rules = [];
             this.Operate = "and";
-            this.Group = [];
+            this.Groups = [];
         }
     };
 })(jQuery);

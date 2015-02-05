@@ -81,7 +81,8 @@ namespace OSharp.Core.Data.Entity
         /// <param name="checkAction">添加信息合法性检查委托</param>
         /// <param name="updateFunc">由DTO到实体的转换委托</param>
         /// <returns>业务操作结果</returns>
-        public OperationResult Insert<TAddDto>(ICollection<TAddDto> dtos, Action<TAddDto> checkAction = null, Func<TAddDto, TEntity, TEntity> updateFunc = null) where TAddDto : IAddDto
+        public OperationResult Insert<TAddDto>(ICollection<TAddDto> dtos, Action<TAddDto> checkAction = null, Func<TAddDto, TEntity, TEntity> updateFunc = null) 
+            where TAddDto : IAddDto
         {
             dtos.CheckNotNull("dtos");
             List<string> names = new List<string>();
@@ -227,7 +228,8 @@ namespace OSharp.Core.Data.Entity
         /// <param name="checkAction">更新信息合法性检查委托</param>
         /// <param name="updateFunc">由DTO到实体的转换委托</param>
         /// <returns>业务操作结果</returns>
-        public OperationResult Update<TEditDto>(ICollection<TEditDto> dtos, Action<TEditDto> checkAction = null, Func<TEditDto, TEntity, TEntity> updateFunc = null) where TEditDto : IEditDto<TKey>
+        public OperationResult Update<TEditDto>(ICollection<TEditDto> dtos, Action<TEditDto> checkAction = null, Func<TEditDto, TEntity, TEntity> updateFunc = null) 
+            where TEditDto : IEditDto<TKey>
         {
             dtos.CheckNotNull("dtos" );
             List<string> names = new List<string>();
@@ -406,38 +408,6 @@ namespace OSharp.Core.Data.Entity
             entity.CheckNotNull("entity");
             ((DbContext)_unitOfWork).Update<TEntity, TKey>(entity);
             return await SaveChangesAsync();
-        }
-
-        /// <summary>
-        /// 异步使用附带新值的实体更新指定实体属性的值，此方法不支持事务
-        /// </summary>
-        /// <param name="propertyExpresion">属性表达式，提供要更新的实体属性</param>
-        /// <param name="entities">附带新值的实体属性，必须包含主键</param>
-        /// <returns>操作影响的行数</returns>
-        /// <exception cref="System.NotSupportedException"></exception>
-        public async Task<int> UpdateAsync(Expression<Func<TEntity, object>> propertyExpresion, params TEntity[] entities)
-        {
-            propertyExpresion.CheckNotNull("propertyExpresion");
-            entities.CheckNotNull("entities");
-            CodeFirstDbContext context = new CodeFirstDbContext();
-            context.Update<TEntity, TKey>(propertyExpresion, entities);
-            bool fail;
-            try
-            {
-                return await context.SaveChangesAsync(false);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                fail = true;
-            }
-            if (fail)
-            {
-                TKey[] ids = entities.Select(m => m.Id).ToArray();
-                context.Set<TEntity>().Where(m => ids.Contains(m.Id)).Load();
-                context.Update<TEntity, TKey>(propertyExpresion, entities);
-                return await context.SaveChangesAsync(false);
-            }
-            return 0;
         }
 
         /// <summary>
