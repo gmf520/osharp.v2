@@ -104,6 +104,8 @@ namespace OSharp.Utility.Extensions.Tests
             Assert.AreEqual(source.OrderBy("Id").ToArray()[1].Name, "hdg");
             Assert.AreEqual(source.OrderBy("Name", ListSortDirection.Descending).ToArray()[3].Id, 1);
             Assert.AreEqual(source.OrderBy(new SortCondition("Id")).ToArray()[1].Name, "hdg");
+            Assert.AreEqual(source.OrderBy(new SortCondition<TestEntity>(m => m.Id)).ToArray()[1].Name, "hdg");
+            Assert.AreEqual(source.OrderBy(new SortCondition<TestEntity>(m => m.Name.Length)).ToArray()[1].Name, "fda");
             Assert.AreEqual(source.OrderBy(new SortCondition("Name", ListSortDirection.Descending)).ToArray()[3].Id, 1);
         }
 

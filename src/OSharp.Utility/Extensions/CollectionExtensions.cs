@@ -169,6 +169,20 @@ namespace OSharp.Utility.Extensions
         }
 
         /// <summary>
+        /// 把<see cref="IQueryable{T}"/>集合按指定字段排序条件进行排序
+        /// </summary>
+        /// <typeparam name="T">动态类型</typeparam>
+        /// <param name="source">要排序的数据集</param>
+        /// <param name="sortCondition">列表字段排序条件</param>
+        /// <returns></returns>
+        public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> source, SortCondition<T> sortCondition)
+        {
+            source.CheckNotNull("source");
+            sortCondition.CheckNotNull("sortCondition");
+            return source.OrderBy(sortCondition.SortField, sortCondition.ListSortDirection);
+        }
+
+        /// <summary>
         /// 把<see cref="IOrderedQueryable{T}"/>集合继续按指定字段排序方式进行排序
         /// </summary>
         /// <typeparam name="T">动态类型</typeparam>

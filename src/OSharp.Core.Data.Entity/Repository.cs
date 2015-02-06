@@ -282,7 +282,9 @@ namespace OSharp.Core.Data.Entity
         {
             TKey defaultId = default(TKey);
             var entity = _dbSet.Where(predicate).Select(m => new { m.Id }).SingleOrDefault();
-            bool exists = id.Equals(defaultId) ? entity != null : entity != null && entity.Id.Equals(defaultId);
+            bool exists = (!(typeof(TKey).IsValueType) && id == null) || id.Equals(defaultId) 
+                ? entity != null 
+                : entity != null && entity.Id.Equals(defaultId);
             return exists;
         }
 
