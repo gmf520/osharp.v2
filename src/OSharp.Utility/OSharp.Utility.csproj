@@ -155,6 +155,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="OSharp.Keys.snk" />
     <None Include="packages.config" />
   </ItemGroup>
