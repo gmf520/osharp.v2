@@ -120,7 +120,7 @@
     <Compile Include="Filter\QueryablePropertySorter.cs" />
     <Compile Include="IO\DirectoryHelper.cs" />
     <Compile Include="IO\FileHelper.cs" />
-    <Compile Include="Logging\CachingLoggerAdapterBase.cs" />
+    <Compile Include="Logging\LoggerAdapterBase.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\ILoggerAdapter.cs" />
@@ -155,7 +155,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="OSharp.Keys.snk" />
     <None Include="packages.config" />
   </ItemGroup>

@@ -1,9 +1,9 @@
 ﻿// -----------------------------------------------------------------------
 //  <copyright file="IRepository.cs" company="OSharp开源团队">
-//      Copyright (c) 2014 OSharp. All rights reserved.
+//      Copyright (c) 2014-2015 OSharp. All rights reserved.
 //  </copyright>
 //  <last-editor>郭明锋</last-editor>
-//  <last-date>2014-07-16 21:26</last-date>
+//  <last-date>2015-02-06 15:46</last-date>
 // -----------------------------------------------------------------------
 
 using System;
@@ -63,7 +63,9 @@ namespace OSharp.Core.Data
         /// <param name="checkAction">添加信息合法性检查委托</param>
         /// <param name="updateFunc">由DTO到实体的转换委托</param>
         /// <returns>业务操作结果</returns>
-        OperationResult Insert<TAddDto>(ICollection<TAddDto> dtos, Action<TAddDto> checkAction = null, Func<TAddDto, TEntity, TEntity> updateFunc = null)
+        OperationResult Insert<TAddDto>(ICollection<TAddDto> dtos,
+            Action<TAddDto> checkAction = null,
+            Func<TAddDto, TEntity, TEntity> updateFunc = null)
             where TAddDto : IAddDto;
 
         /// <summary>
@@ -118,7 +120,9 @@ namespace OSharp.Core.Data
         /// <param name="checkAction">更新信息合法性检查委托</param>
         /// <param name="updateFunc">由DTO到实体的转换委托</param>
         /// <returns>业务操作结果</returns>
-        OperationResult Update<TEditDto>(ICollection<TEditDto> dtos, Action<TEditDto> checkAction = null, Func<TEditDto, TEntity, TEntity> updateFunc = null)
+        OperationResult Update<TEditDto>(ICollection<TEditDto> dtos,
+            Action<TEditDto> checkAction = null,
+            Func<TEditDto, TEntity, TEntity> updateFunc = null)
             where TEditDto : IEditDto<TKey>;
 
         /// <summary>
@@ -151,11 +155,11 @@ namespace OSharp.Core.Data
         IQueryable<TEntity> GetIncludes(params string[] paths);
 
 #if NET45
-    /// <summary>
-    /// 异步插入实体
-    /// </summary>
-    /// <param name="entity">实体对象</param>
-    /// <returns>操作影响的行数</returns>
+        /// <summary>
+        /// 异步插入实体
+        /// </summary>
+        /// <param name="entity">实体对象</param>
+        /// <returns>操作影响的行数</returns>
         Task<int> InsertAsync(TEntity entity);
 
         /// <summary>

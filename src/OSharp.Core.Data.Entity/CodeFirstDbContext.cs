@@ -28,7 +28,7 @@ namespace OSharp.Core.Data.Entity
     /// </summary>
     public class CodeFirstDbContext : DbContext, IUnitOfWork, IDependency
     {
-        private static readonly Logger Logger = LogManager.GetLogger(typeof(CodeFirstDbContext));
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(CodeFirstDbContext));
 
         /// <summary>
         /// 初始化一个<see cref="CodeFirstDbContext"/>类型的新实例

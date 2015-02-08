@@ -19,7 +19,9 @@ using OSharp.Core.Data;
 using OSharp.Core.Data.Entity;
 using OSharp.Core.Data.Entity.Migrations;
 using OSharp.Demo.Web.Dtos;
+using OSharp.Demo.Web.Logging;
 using OSharp.Demo.Web.Services.Impl;
+using OSharp.Utility.Logging;
 
 
 namespace OSharp.Demo.Web
@@ -33,6 +35,7 @@ namespace OSharp.Demo.Web
             DtoMappers.MapperRegister();
             AutofacMvcRegister();
             DatabaseInitialize();
+            LoggingInitialize();
         }
 
         private static void RoutesRegister()
@@ -71,6 +74,12 @@ namespace OSharp.Demo.Web
             CreateDatabaseIfNotExistsWithSeed.SeedActions.Add(new IdentitySeedAction());
 
             DatabaseInitializer.Initialize();
+        }
+
+        private static void LoggingInitialize()
+        {
+            Log4NetLoggerAdapter adapter = new Log4NetLoggerAdapter();
+            LogManager.AddLoggerAdapter(adapter);
         }
 
         protected void Application_Error(object sender, EventArgs e)

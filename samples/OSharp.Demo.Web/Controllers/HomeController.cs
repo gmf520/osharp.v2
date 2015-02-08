@@ -15,12 +15,14 @@ using System.Web.Mvc;
 using OSharp.Demo.Web.Models;
 using OSharp.Demo.Web.Services;
 using OSharp.Utility.Extensions;
+using OSharp.Utility.Logging;
 
 
 namespace OSharp.Demo.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(HomeController));
         private readonly IIdentityContract _identityContract;
 
         public HomeController(IIdentityContract identityContract)
@@ -30,15 +32,16 @@ namespace OSharp.Demo.Web.Controllers
 
         public ActionResult Index()
         {
-            //return RedirectToAction("Index", "Home", new { area = "Admin" });
-            var data = new
-            {
-                OrganizationCount = _identityContract.Organizations.Count(),
-                UserCount = _identityContract.Users.Count(),
-                RoleCount = _identityContract.Roles.Count()
-            };
-            ViewBag.Data = data.ToDynamic();
-            return View();
+            Logger.Debug("访问首页，将转向到后台管理首页");
+            return RedirectToAction("Index", "Home", new { area = "Admin" });
+            //var data = new
+            //{
+            //    OrganizationCount = _identityContract.Organizations.Count(),
+            //    UserCount = _identityContract.Users.Count(),
+            //    RoleCount = _identityContract.Roles.Count()
+            //};
+            //ViewBag.Data = data.ToDynamic();
+            //return View();
         }
     }
 

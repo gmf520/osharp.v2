@@ -1,4 +1,12 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="ExceptionHandlingAttribute.cs" company="OSharp开源团队">
+//      Copyright (c) 2014-2015 OSharp. All rights reserved.
+//  </copyright>
+//  <last-editor>郭明锋</last-editor>
+//  <last-date>2015-02-07 15:22</last-date>
+// -----------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -14,7 +22,7 @@ namespace OSharp.Web.Http.Filters
 {
     public class ExceptionHandlingAttribute : ExceptionFilterAttribute
     {
-        private static readonly Logger Logger = LogManager.GetLogger(typeof(ExceptionHandlingAttribute));
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(ExceptionHandlingAttribute));
 
         static ExceptionHandlingAttribute()
         {
@@ -61,6 +69,7 @@ namespace OSharp.Web.Http.Filters
     public class Error
     {
         public string Name { get; set; }
+
         public string Message { get; set; }
     }
 }

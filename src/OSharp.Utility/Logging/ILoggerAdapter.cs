@@ -12,7 +12,7 @@ using System;
 namespace OSharp.Utility.Logging
 {
     /// <summary>
-    /// 定义日志实现适配器的方法
+    /// 定义日志输出适配器的方法
     /// </summary>
     public interface ILoggerAdapter
     {

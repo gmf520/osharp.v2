@@ -44,6 +44,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{95964771-8
 	ProjectSection(SolutionItems) = preProject
 		docs\OSharp开发框架架构示图.png = docs\OSharp开发框架架构示图.png
 		docs\OSharp开发框架架构示图.vsd = docs\OSharp开发框架架构示图.vsd
+		docs\日志模块示图.vsd = docs\日志模块示图.vsd
 	EndProjectSection
 EndProject
 Global

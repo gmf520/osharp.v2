@@ -13,6 +13,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using OSharp.Demo.Web.ViewModels;
+using OSharp.Utility.Logging;
 using OSharp.Web.Mvc.Security;
 
 
@@ -20,6 +21,8 @@ namespace OSharp.Demo.Web.Areas.Admin.Controllers
 {
     public class HomeController : Controller
     {
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(HomeController));
+
         #region Ajax功能
 
         #region 获取数据
@@ -92,6 +95,7 @@ namespace OSharp.Demo.Web.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
+            Logger.Debug("访问后台管理首页");
             return View();
         }
 

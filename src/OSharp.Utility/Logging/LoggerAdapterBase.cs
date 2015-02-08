@@ -18,14 +18,14 @@ namespace OSharp.Utility.Logging
     /// <summary>
     /// 按名称缓存的日志实现适配器基类，用于创建并管理指定类型的日志实例
     /// </summary>
-    public abstract class CachingLoggerAdapterBase : ILoggerAdapter
+    public abstract class LoggerAdapterBase : ILoggerAdapter
     {
         private readonly ConcurrentDictionary<string, ILog> _cacheLoggers;
 
         /// <summary>
-        /// 初始化一个<see cref="CachingLoggerAdapterBase"/>类型的新实例
+        /// 初始化一个<see cref="LoggerAdapterBase"/>类型的新实例
         /// </summary>
-        protected CachingLoggerAdapterBase()
+        protected LoggerAdapterBase()
         {
             _cacheLoggers = new ConcurrentDictionary<string, ILog>();
         }

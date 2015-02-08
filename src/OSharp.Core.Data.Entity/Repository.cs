@@ -1,9 +1,9 @@
 ﻿// -----------------------------------------------------------------------
 //  <copyright file="Repository.cs" company="OSharp开源团队">
-//      Copyright (c) 2014 OSharp. All rights reserved.
+//      Copyright (c) 2014-2015 OSharp. All rights reserved.
 //  </copyright>
 //  <last-editor>郭明锋</last-editor>
-//  <last-date>2014-08-13 15:52</last-date>
+//  <last-date>2015-02-06 15:46</last-date>
 // -----------------------------------------------------------------------
 
 using System;
@@ -81,12 +81,14 @@ namespace OSharp.Core.Data.Entity
         /// <param name="checkAction">添加信息合法性检查委托</param>
         /// <param name="updateFunc">由DTO到实体的转换委托</param>
         /// <returns>业务操作结果</returns>
-        public OperationResult Insert<TAddDto>(ICollection<TAddDto> dtos, Action<TAddDto> checkAction = null, Func<TAddDto, TEntity, TEntity> updateFunc = null) 
+        public OperationResult Insert<TAddDto>(ICollection<TAddDto> dtos,
+            Action<TAddDto> checkAction = null,
+            Func<TAddDto, TEntity, TEntity> updateFunc = null)
             where TAddDto : IAddDto
         {
             dtos.CheckNotNull("dtos");
             List<string> names = new List<string>();
-            foreach (var dto in dtos)
+            foreach (TAddDto dto in dtos)
             {
                 TEntity entity = Mapper.Map<TEntity>(dto);
                 try
@@ -172,9 +174,9 @@ namespace OSharp.Core.Data.Entity
         /// <returns>业务操作结果</returns>
         public OperationResult Delete(ICollection<TKey> ids, Action<TEntity> checkAction = null, Func<TEntity, TEntity> deleteFunc = null)
         {
-            ids.CheckNotNull("ids" );
+            ids.CheckNotNull("ids");
             List<string> names = new List<string>();
-            foreach (var id in ids)
+            foreach (TKey id in ids)
             {
                 TEntity entity = _dbSet.Find(id);
                 try
@@ -228,12 +230,14 @@ namespace OSharp.Core.Data.Entity
         /// <param name="checkAction">更新信息合法性检查委托</param>
         /// <param name="updateFunc">由DTO到实体的转换委托</param>
         /// <returns>业务操作结果</returns>
-        public OperationResult Update<TEditDto>(ICollection<TEditDto> dtos, Action<TEditDto> checkAction = null, Func<TEditDto, TEntity, TEntity> updateFunc = null) 
+        public OperationResult Update<TEditDto>(ICollection<TEditDto> dtos,
+            Action<TEditDto> checkAction = null,
+            Func<TEditDto, TEntity, TEntity> updateFunc = null)
             where TEditDto : IEditDto<TKey>
         {
-            dtos.CheckNotNull("dtos" );
+            dtos.CheckNotNull("dtos");
             List<string> names = new List<string>();
-            foreach (var dto in dtos)
+            foreach (TEditDto dto in dtos)
             {
                 TEntity entity = _dbSet.Find(dto.Id);
                 if (entity == null)
@@ -282,8 +286,8 @@ namespace OSharp.Core.Data.Entity
         {
             TKey defaultId = default(TKey);
             var entity = _dbSet.Where(predicate).Select(m => new { m.Id }).SingleOrDefault();
-            bool exists = (!(typeof(TKey).IsValueType) && id == null) || id.Equals(defaultId) 
-                ? entity != null 
+            bool exists = (!(typeof(TKey).IsValueType) && id == null) || id.Equals(defaultId)
+                ? entity != null
                 : entity != null && entity.Id.Equals(defaultId);
             return exists;
         }
@@ -319,7 +323,7 @@ namespace OSharp.Core.Data.Entity
         {
             paths.CheckNotNull("paths");
             IQueryable<TEntity> source = _dbSet;
-            foreach (var path in paths)
+            foreach (string path in paths)
             {
                 source = source.Include(path);
             }

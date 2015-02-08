@@ -1,9 +1,9 @@
 ﻿// -----------------------------------------------------------------------
 //  <copyright file="Logger.cs" company="OSharp开源团队">
-//      Copyright (c) 2014 OSharp. All rights reserved.
+//      Copyright (c) 2014-2015 OSharp. All rights reserved.
 //  </copyright>
 //  <last-editor>郭明锋</last-editor>
-//  <last-date>2014-08-12 18:09</last-date>
+//  <last-date>2015-02-07 15:39</last-date>
 // -----------------------------------------------------------------------
 
 using System;
@@ -17,9 +17,9 @@ using OSharp.Utility.Extensions;
 namespace OSharp.Utility.Logging
 {
     /// <summary>
-    /// 日志记录者
+    /// 日志记录者，日志记录输入端
     /// </summary>
-    public sealed class Logger : ILogger
+    internal sealed class Logger : ILogger
     {
         internal Logger(Type type)
             : this(type.FullName)

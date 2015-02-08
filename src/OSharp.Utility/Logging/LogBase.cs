@@ -12,40 +12,17 @@ using System;
 namespace OSharp.Utility.Logging
 {
     /// <summary>
-    /// 日志实例基类，用于定义日志的处理业务
+    /// 日志输出者适配基类，用于定义日志输出的处理业务
     /// </summary>
     public abstract class LogBase : ILog
     {
-        /// <summary>
-        /// 日志输出处理委托实例
-        /// </summary>
-        // ReSharper disable once InconsistentNaming
-        private readonly WriteHandler Write;
-
-        /// <summary>
-        /// 初始化一个<see cref="LogBase"/>类型的新实例
-        /// </summary>
-        protected LogBase()
-        {
-            Write = GetWriteHandler() ?? WriteInternal;
-        }
-
-        /// <summary>
-        /// 获取日志输出处理委托实例
-        /// </summary>
-        /// <returns></returns>
-        private static WriteHandler GetWriteHandler()
-        {
-            return null;
-        }
-
         /// <summary>
         /// 获取日志输出处理委托实例
         /// </summary>
         /// <param name="level">日志输出级别</param>
         /// <param name="message">日志消息</param>
         /// <param name="exception">日志异常</param>
-        protected abstract void WriteInternal(LogLevel level, object message, Exception exception);
+        protected abstract void Write(LogLevel level, object message, Exception exception);
 
         #region Implementation of ILog
 
@@ -284,13 +261,5 @@ namespace OSharp.Utility.Logging
         }
 
         #endregion
-
-        /// <summary>
-        /// 日志输出处理委托
-        /// </summary>
-        /// <param name="level">日志输出级别</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="exception">日志异常</param>
-        protected delegate void WriteHandler(LogLevel level, object message, Exception exception);
     }
 }
