@@ -1,7 +1,7 @@
 ﻿# osharp
 ## 简介
 OSharp是一个依赖于EntityFramework，专注于业务数据模型与EntityFramework解耦的适用于中小型项目开发的（插件式）框架。
-相关博客：http://www.cnblogs.com/guomingfeng/category/648109.html
+相关博客：http://www.cnblogs.com/guomingfeng/tag/OSharp%E6%A1%86%E6%9E%B6/
 
 ## 相关技术
 1. 技术框架：.NET Framework 4.5
