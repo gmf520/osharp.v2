@@ -67,7 +67,10 @@
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="Data\IUnitOfWork.cs" />
     <Compile Include="IDependency.cs" />
-    <Compile Include="Logging\OperatingLog.cs" />
+    <Compile Include="Logging\DataLog.cs" />
+    <Compile Include="Logging\LogBase.cs" />
+    <Compile Include="Logging\OperateLog.cs" />
+    <Compile Include="Logging\SystemLog.cs" />
     <Compile Include="ServiceBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

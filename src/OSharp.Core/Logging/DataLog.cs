@@ -19,19 +19,19 @@ using OSharp.Utility.Data;
 namespace OSharp.Core.Logging
 {
     /// <summary>
-    /// 实体数据操作日志信息类
+    /// 数据日志信息类
     /// </summary>
-    public class OperatingLog : EntityBase<Guid>
+    public class DataLog : EntityBase<Guid>
     {
         /// <summary>
-        /// 初始化一个<see cref="OperatingLog"/>类型的新实例
+        /// 初始化一个<see cref="DataLog"/>类型的新实例
         /// </summary>
-        public OperatingLog()
+        public DataLog()
         {
             Id = CombHelper.NewComb();
             Operator = OSharpContext.Current.Operator;
             OperateDate = DateTime.Now;
-            LogItems = new List<OperatingLogItem>();
+            LogItems = new List<DataLogItem>();
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace OSharp.Core.Logging
         /// <summary>
         /// 获取或设置 操作明细
         /// </summary>
-        public List<OperatingLogItem> LogItems { get; set; }
+        public List<DataLogItem> LogItems { get; set; }
 
     }
 
@@ -92,7 +92,7 @@ namespace OSharp.Core.Logging
     /// <summary>
     /// 实体操作日志明细
     /// </summary>
-    public class OperatingLogItem
+    public class DataLogItem
     {
         /// <summary>
         /// 获取或设置 字段

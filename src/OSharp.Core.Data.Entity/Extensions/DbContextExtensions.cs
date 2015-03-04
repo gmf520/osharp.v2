@@ -105,7 +105,7 @@ namespace OSharp.Core.Data.Entity
         /// <summary>
         /// 获取数据上下文的变更日志信息
         /// </summary>
-        public static IEnumerable<OperatingLog> GetEntityOperateLogs(this DbContext dbContext)
+        public static IEnumerable<DataLog> GetEntityOperateLogs(this DbContext dbContext)
         {
             string[] nonLoggingTypeNames = { };
 
@@ -114,7 +114,7 @@ namespace OSharp.Core.Data.Entity
 
             IEnumerable<ObjectStateEntry> entries = manager.GetObjectStateEntries(EntityState.Added)
                 .Where(entry => entry.Entity != null && !nonLoggingTypeNames.Contains(entry.Entity.GetType().FullName));
-            IEnumerable<OperatingLog> logs = entries.Select(GetAddedLog);
+            IEnumerable<DataLog> logs = entries.Select(GetAddedLog);
 
             entries = manager.GetObjectStateEntries(EntityState.Modified)
                 .Where(entry => entry.Entity != null && !nonLoggingTypeNames.Contains(entry.Entity.GetType().FullName));
@@ -131,7 +131,7 @@ namespace OSharp.Core.Data.Entity
         /// </summary>
         /// <param name="dbContext"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<OperatingLog>> GetEntityOperateLogsAsync(this DbContext dbContext)
+        public static async Task<IEnumerable<DataLog>> GetEntityOperateLogsAsync(this DbContext dbContext)
         {
             return await Task.Run(() => dbContext.GetEntityOperateLogs());
         }
@@ -141,9 +141,9 @@ namespace OSharp.Core.Data.Entity
         /// </summary>
         /// <param name="entry"></param>
         /// <returns></returns>
-        private static OperatingLog GetAddedLog(ObjectStateEntry entry)
+        private static DataLog GetAddedLog(ObjectStateEntry entry)
         {
-            OperatingLog log = new OperatingLog
+            DataLog log = new DataLog
             {
                 EntityName = entry.EntitySet.ElementType.Name,
                 OperateType = OperatingType.Insert
@@ -156,7 +156,7 @@ namespace OSharp.Core.Data.Entity
                     continue;
                 }
                 object value = entry.CurrentValues.GetValue(i);
-                OperatingLogItem logItem = new OperatingLogItem()
+                DataLogItem logItem = new DataLogItem()
                 {
                     Field = name,
                     NewValue = value == null ? null : value.ToString()
@@ -171,9 +171,9 @@ namespace OSharp.Core.Data.Entity
         /// </summary>
         /// <param name="entry"></param>
         /// <returns></returns>
-        private static OperatingLog GetModifiedLog(ObjectStateEntry entry)
+        private static DataLog GetModifiedLog(ObjectStateEntry entry)
         {
-            OperatingLog log = new OperatingLog()
+            DataLog log = new DataLog()
             {
                 EntityName = entry.EntitySet.ElementType.Name,
                 OperateType = OperatingType.Update
@@ -191,7 +191,7 @@ namespace OSharp.Core.Data.Entity
                 {
                     continue;
                 }
-                OperatingLogItem logItem = new OperatingLogItem()
+                DataLogItem logItem = new DataLogItem()
                 {
                     Field = name,
                     NewValue = currentValue == null ? null : currentValue.ToString(),
@@ -207,9 +207,9 @@ namespace OSharp.Core.Data.Entity
         /// </summary>
         /// <param name="entry"></param>
         /// <returns></returns>
-        private static OperatingLog GetDeletedLog(ObjectStateEntry entry)
+        private static DataLog GetDeletedLog(ObjectStateEntry entry)
         {
-            OperatingLog log = new OperatingLog()
+            DataLog log = new DataLog()
             {
                 EntityName = entry.EntitySet.ElementType.Name,
                 OperateType = OperatingType.Delete
@@ -222,7 +222,7 @@ namespace OSharp.Core.Data.Entity
                     continue;
                 }
                 object originalValue = entry.OriginalValues[i];
-                OperatingLogItem logItem = new OperatingLogItem()
+                DataLogItem logItem = new DataLogItem()
                 {
                     Field = name,
                     OriginalValue = originalValue == null ? null : originalValue.ToString()

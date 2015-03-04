@@ -70,7 +70,7 @@ namespace OSharp.Utility.Logging
             Loggers[name] = logger;
             return logger;
         }
-
+         
         /// <summary>
         /// 获取指定类型的日志记录实例
         /// </summary>

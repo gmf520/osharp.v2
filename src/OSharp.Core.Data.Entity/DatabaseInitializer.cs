@@ -53,7 +53,7 @@ namespace OSharp.Core.Data.Entity
             }
             Database.SetInitializer(initializer);
             
-            //EF预热
+            //EF预热，解决EF6第一次加载慢的问题
             ObjectContext objectContext = ((IObjectContextAdapter)context).ObjectContext;
             StorageMappingItemCollection mappingItemCollection = (StorageMappingItemCollection)objectContext.ObjectStateManager
                 .MetadataWorkspace.GetItemCollection(DataSpace.CSSpace);

@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 
 using OSharp.Core.Logging;
 using OSharp.Utility.Exceptions;
+using OSharp.Utility.Extensions;
 using OSharp.Utility.Logging;
 
 
@@ -55,9 +56,19 @@ namespace OSharp.Core.Data.Entity
         /// <returns></returns>
         private static string GetConnectionStringName()
         {
-            string name = ConfigurationManager.AppSettings.Get("OSharp-ConnectionStringName")
-                ?? ConfigurationManager.AppSettings.Get("ConnectionStringName") ?? "default";
+            string name = ConfigurationManager.AppSettings.Get("OSharp-ConnectionStringName") ?? "default";
             return name;
+        }
+
+        /// <summary>
+        /// 获取 是否允许数据日志记录
+        /// </summary>
+        private static bool DataLoggingEnabled
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings.Get("OSharp-DataLoggingEnabled").CastTo(false);
+            }
         }
 
         /// <summary>
@@ -81,9 +92,13 @@ namespace OSharp.Core.Data.Entity
             {
                 Configuration.ValidateOnSaveEnabled = validateOnSaveEnabled;
                 //记录实体操作日志
-                List<OperatingLog> logs = this.GetEntityOperateLogs().ToList();
+                List<DataLog>logs = new List<DataLog>();
+                if (DataLoggingEnabled)
+                {
+                    logs = this.GetEntityOperateLogs().ToList();
+                }
                 int count = base.SaveChanges();
-                if (count > 0)
+                if (count > 0 && DataLoggingEnabled)
                 {
                     Logger.Info(logs);
                 }
@@ -110,8 +125,6 @@ namespace OSharp.Core.Data.Entity
         }
 #if NET45
 
-        #region Overrides of DbContext
-
         /// <summary>
         /// 异步提交当前单元操作的更改。
         /// </summary>
@@ -120,8 +133,6 @@ namespace OSharp.Core.Data.Entity
         {
             return SaveChangesAsync(true);
         }
-
-        #endregion
 
         /// <summary>
         /// 提交当前单元操作的更改。
@@ -135,9 +146,13 @@ namespace OSharp.Core.Data.Entity
             {
                 Configuration.ValidateOnSaveEnabled = validateOnSaveEnabled;
                 //记录实体操作日志
-                List<OperatingLog> logs = (await this.GetEntityOperateLogsAsync()).ToList();
+                List<DataLog> logs = new List<DataLog>();
+                if (DataLoggingEnabled)
+                {
+                    logs = (await this.GetEntityOperateLogsAsync()).ToList();
+                }
                 int count = await base.SaveChangesAsync();
-                if (count > 0)
+                if (count > 0 && DataLoggingEnabled)
                 {
                     Logger.Info(logs);
                 }

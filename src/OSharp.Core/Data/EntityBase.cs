@@ -1,9 +1,9 @@
 ﻿// -----------------------------------------------------------------------
-//  <copyright file="AbstractBuilder.cs" company="OSharp开源团队">
-//      Copyright (c) 2014 OSharp. All rights reserved.
+//  <copyright file="EntityBase.cs" company="OSharp开源团队">
+//      Copyright (c) 2014-2015 OSharp. All rights reserved.
 //  </copyright>
 //  <last-editor>郭明锋</last-editor>
-//  <last-date>2014:07:05 3:28</last-date>
+//  <last-date>2015-02-26 18:24</last-date>
 // -----------------------------------------------------------------------
 
 using System;

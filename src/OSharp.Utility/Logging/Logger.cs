@@ -21,11 +21,11 @@ namespace OSharp.Utility.Logging
     /// </summary>
     internal sealed class Logger : ILogger
     {
-        internal Logger(Type type)
+        public Logger(Type type)
             : this(type.FullName)
         { }
 
-        internal Logger(string name)
+        public Logger(string name)
         {
             Name = name;
             EntryLevel = ConfigurationManager.AppSettings.Get("OSharp-EntryLogLevel").CastTo(LogLevel.Off);

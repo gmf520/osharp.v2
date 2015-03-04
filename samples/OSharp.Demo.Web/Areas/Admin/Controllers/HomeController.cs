@@ -1,9 +1,9 @@
 ﻿// -----------------------------------------------------------------------
 //  <copyright file="HomeController.cs" company="OSharp开源团队">
-//      Copyright (c) 2015 OSharp. All rights reserved.
+//      Copyright (c) 2014-2015 OSharp. All rights reserved.
 //  </copyright>
-//  <last-editor>最后修改人</last-editor>
-//  <last-date>2015-01-09 13:50</last-date>
+//  <last-editor>郭明锋</last-editor>
+//  <last-date>2015-02-19 17:43</last-date>
 // -----------------------------------------------------------------------
 
 using System;
@@ -12,7 +12,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using OSharp.Demo.Web.Services;
 using OSharp.Demo.Web.ViewModels;
+using OSharp.Utility.Extensions;
 using OSharp.Utility.Logging;
 using OSharp.Web.Mvc.Security;
 
@@ -22,6 +24,12 @@ namespace OSharp.Demo.Web.Areas.Admin.Controllers
     public class HomeController : Controller
     {
         private static readonly ILogger Logger = LogManager.GetLogger(typeof(HomeController));
+        private readonly IIdentityContract _identityContract;
+
+        public HomeController(IIdentityContract identityContract)
+        {
+            _identityContract = identityContract;
+        }
 
         #region Ajax功能
 
@@ -58,13 +66,13 @@ namespace OSharp.Demo.Web.Areas.Admin.Controllers
 
             Action<ICollection<TreeNode>> action = list =>
             {
-                foreach (var node in list)
+                foreach (TreeNode node in list)
                 {
                     node.Id = "node" + node.Text;
                 }
             };
 
-            foreach (var node in nodes)
+            foreach (TreeNode node in nodes)
             {
                 node.Id = "node" + node.Text;
                 if (node.Children != null && node.Children.Count > 0)
@@ -92,7 +100,6 @@ namespace OSharp.Demo.Web.Areas.Admin.Controllers
 
         #endregion
 
-
         public ActionResult Index()
         {
             Logger.Debug("访问后台管理首页");
@@ -101,6 +108,12 @@ namespace OSharp.Demo.Web.Areas.Admin.Controllers
 
         public ActionResult Welcome()
         {
+            ViewBag.Data = new
+            {
+                OrganizationCount = _identityContract.Organizations.Count(),
+                RoleCount = _identityContract.Roles.Count(),
+                UserCount = _identityContract.Users.Count()
+            }.ToDynamic();
             return View();
         }
     }
