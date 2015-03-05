@@ -1,9 +1,9 @@
 ﻿// -----------------------------------------------------------------------
 //  <copyright file="MigrationsConfiguration.cs" company="OSharp开源团队">
-//      Copyright (c) 2014 OSharp. All rights reserved.
+//      Copyright (c) 2014-2015 OSharp. All rights reserved.
 //  </copyright>
 //  <last-editor>郭明锋</last-editor>
-//  <last-date>2014-07-16 22:37</last-date>
+//  <last-date>2015-03-05 9:26</last-date>
 // -----------------------------------------------------------------------
 
 using System;
@@ -17,6 +17,9 @@ using System.Threading.Tasks;
 
 namespace OSharp.Core.Data.Entity.Migrations
 {
+    /// <summary>
+    /// 默认迁移配置
+    /// </summary>
     public class MigrationsConfiguration : DbMigrationsConfiguration<CodeFirstDbContext>
     {
         static MigrationsConfiguration()
@@ -24,6 +27,9 @@ namespace OSharp.Core.Data.Entity.Migrations
             SeedActions = new List<ISeedAction>();
         }
 
+        /// <summary>
+        /// 初始化一个<see cref="MigrationsConfiguration"/>类型的新实例
+        /// </summary>
         public MigrationsConfiguration()
         {
             AutomaticMigrationsEnabled = true;

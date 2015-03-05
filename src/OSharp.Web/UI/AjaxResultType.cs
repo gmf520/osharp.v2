@@ -1,45 +1,39 @@
-﻿using OSharp.Utility.Data;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="AjaxResultType.cs" company="OSharp开源团队">
+//      Copyright (c) 2014-2015 OSharp. All rights reserved.
+//  </copyright>
+//  <last-editor>郭明锋</last-editor>
+//  <last-date>2015-03-05 9:24</last-date>
+// -----------------------------------------------------------------------
+
+using OSharp.Utility.Data;
 
 
 namespace OSharp.Web.UI
 {
+    /// <summary>
+    /// 表示 ajax 操作结果类型的枚举
+    /// </summary>
     public enum AjaxResultType
     {
+        /// <summary>
+        /// 消息结果类型
+        /// </summary>
         Info,
 
+        /// <summary>
+        /// 成功结果类型
+        /// </summary>
         Success,
 
+        /// <summary>
+        /// 警告结果类型
+        /// </summary>
         Warning,
 
+        /// <summary>
+        /// 异常结果类型
+        /// </summary>
         Error
-    }
-
-
-    public static class AjaxResultTypeExtensions
-    {
-        /// <summary>
-        /// 把业务结果类型<see cref="OperationResultType"/>转换为Ajax结果类型<see cref="AjaxResultType"/>
-        /// </summary>
-        public static AjaxResultType ToAjaxResultType(this OperationResultType resultType)
-        {
-            switch (resultType)
-            {
-                case OperationResultType.Success:
-                    return AjaxResultType.Success;
-                case OperationResultType.NoChanged:
-                    return AjaxResultType.Info;
-                default:
-                    return AjaxResultType.Error;
-            }
-        }
-        
-        /// <summary>
-        /// 判断业务结果类型是否是Error结果
-        /// </summary>
-        public static bool IsError(this OperationResultType resultType)
-        {
-            return resultType == OperationResultType.QueryNull || resultType == OperationResultType.ValidError
-                || resultType == OperationResultType.Error;
-        }
     }
 }

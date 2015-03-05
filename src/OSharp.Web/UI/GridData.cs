@@ -17,10 +17,16 @@ namespace OSharp.Web.UI
     /// <typeparam name="T"></typeparam>
     public class GridData<T>
     {
+        /// <summary>
+        /// 初始化一个<see cref="GridData{T}"/>类型的新实例
+        /// </summary>
         public GridData()
             : this(new List<T>(), 0)
         { }
 
+        /// <summary>
+        /// 初始化一个<see cref="GridData{T}"/>类型的新实例
+        /// </summary>
         public GridData(IEnumerable<T> rows, int total)
         {
             Rows = rows;

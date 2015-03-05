@@ -211,6 +211,7 @@
     </Compile>
     <Compile Include="UI\AjaxResult.cs" />
     <Compile Include="UI\AjaxResultType.cs" />
+    <Compile Include="UI\Extensions.cs" />
     <Compile Include="UI\GridData.cs" />
     <Compile Include="UI\GridRequest.cs" />
   </ItemGroup>
