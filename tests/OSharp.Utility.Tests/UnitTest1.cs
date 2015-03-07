@@ -1,5 +1,10 @@
 ﻿using System;
+using System.IO;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using OSharp.Utility.IO;
+
 
 namespace OSharp.Utility.Tests
 {
@@ -9,8 +14,9 @@ namespace OSharp.Utility.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            Type type = typeof(String);
-            Assert.IsTrue(!type.IsValueType);
+            string path = @"D:\~1";
+            DirectoryHelper.SetAttributes(path, FileAttributes.System, true);
+            DirectoryHelper.SetAttributes(path, FileAttributes.Hidden, true);
         }
     }
 }
