@@ -9,9 +9,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+
+using OSharp.Utility.Extensions;
 
 
 namespace OSharp.Utility.Develop.T4
@@ -41,10 +44,22 @@ namespace OSharp.Utility.Develop.T4
                 ModuleName = @namespace.Substring(index, @namespace.Length - index);
             }
             Name = modelType.Name;
-            object[] descAttributes = modelType.GetCustomAttributes(typeof(DescriptionAttribute), true);
-            Description = descAttributes.Length == 1 ? ((DescriptionAttribute)descAttributes[0]).Description : Name;
-            Properties = modelType.GetProperties();
+            Description = modelType.ToDescription();
+            Properties = modelType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var property in Properties)
+            {
+                if (property.ExistsAttribute<KeyAttribute>() || property.Name.ToUpper() == "ID" || property.Name.ToUpper().EndsWith("ID"))
+                {
+                    KeyType = property.PropertyType;
+                    break;
+                }
+            }
         }
+
+        /// <summary>
+        /// 获取或设置 主键类型
+        /// </summary>
+        public Type KeyType { get; private set; }
 
         /// <summary>
         /// 获取 是否使用模块文件夹

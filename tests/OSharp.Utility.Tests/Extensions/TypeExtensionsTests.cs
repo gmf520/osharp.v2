@@ -85,9 +85,9 @@ namespace OSharp.Utility.Extensions.Tests
         public void AttributeExistsTest()
         {
             Type type = GetType();
-            Assert.IsTrue(type.AttributeExists<TestClassAttribute>());
+            Assert.IsTrue(type.ExistsAttribute<TestClassAttribute>());
             MethodInfo method = type.GetMethod("AttributeExistsTest");
-            Assert.IsTrue(method.AttributeExists<TestMethodAttribute>());
+            Assert.IsTrue(method.ExistsAttribute<TestMethodAttribute>());
         }
 
         [TestMethod()]

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -14,9 +16,12 @@ namespace OSharp.Utility.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            string path = @"D:\~1";
-            DirectoryHelper.SetAttributes(path, FileAttributes.System, true);
-            DirectoryHelper.SetAttributes(path, FileAttributes.Hidden, true);
+            Type type = typeof(List<int>);
+            if (type.IsGenericType)
+            {
+                Type[] ts = type.GetGenericArguments();
+                Assert.IsTrue(ts.Length == 1);
+            }
         }
     }
 }

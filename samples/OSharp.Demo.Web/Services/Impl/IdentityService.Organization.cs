@@ -38,7 +38,7 @@ namespace OSharp.Demo.Web.Services.Impl
         /// <returns>组织机构信息是否存在</returns>
         public bool CheckOrganizationExists(Expression<Func<Organization, bool>> predicate, int id = 0)
         {
-            return _organizationRepository.ExistsCheck(predicate, id);
+            return _organizationRepository.CheckExists(predicate, id);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace OSharp.Demo.Web.Services.Impl
             OperationResult result = _organizationRepository.Insert(dtos,
                 dto =>
                 {
-                    if (_organizationRepository.ExistsCheck(m => m.Name == dto.Name))
+                    if (_organizationRepository.CheckExists(m => m.Name == dto.Name))
                     {
                         throw new Exception("组织机构名称“{0}”已存在，不能重复添加。".FormatWith(dto.Name));
                     }
@@ -92,7 +92,7 @@ namespace OSharp.Demo.Web.Services.Impl
             OperationResult result = _organizationRepository.Update(dtos,
                 dto =>
                 {
-                    if (_organizationRepository.ExistsCheck(m => m.Name == dto.Name, dto.Id))
+                    if (_organizationRepository.CheckExists(m => m.Name == dto.Name, dto.Id))
                     {
                         throw new Exception("组织机构名称“{0}”已存在，不能重复添加。".FormatWith(dto.Name));
                     }

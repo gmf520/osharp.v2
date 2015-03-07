@@ -72,7 +72,7 @@ namespace OSharp.Utility.Extensions
         /// <param name="memberInfo">要检查的类型成员</param>
         /// <param name="inherit">是否从继承中查找</param>
         /// <returns>是否存在</returns>
-        public static bool AttributeExists<T>(this MemberInfo memberInfo, bool inherit = false) where T : Attribute
+        public static bool ExistsAttribute<T>(this MemberInfo memberInfo, bool inherit = false) where T : Attribute
         {
             return memberInfo.GetCustomAttributes(typeof(T), inherit).Any(m => (m as T) != null);
         }

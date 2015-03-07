@@ -131,7 +131,7 @@ namespace OSharp.Core.Data
         /// <param name="predicate">查询条件谓语表达式</param>
         /// <param name="id">编辑的实体标识</param>
         /// <returns>是否存在</returns>
-        bool ExistsCheck(Expression<Func<TEntity, bool>> predicate, TKey id = default(TKey));
+        bool CheckExists(Expression<Func<TEntity, bool>> predicate, TKey id = default(TKey));
 
         /// <summary>
         /// 查找指定主键的实体

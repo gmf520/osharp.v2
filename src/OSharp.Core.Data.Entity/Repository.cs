@@ -282,7 +282,7 @@ namespace OSharp.Core.Data.Entity
         /// <param name="predicate">查询条件谓语表达式</param>
         /// <param name="id">编辑的实体标识</param>
         /// <returns>是否存在</returns>
-        public bool ExistsCheck(Expression<Func<TEntity, bool>> predicate, TKey id = default(TKey))
+        public bool CheckExists(Expression<Func<TEntity, bool>> predicate, TKey id = default(TKey))
         {
             TKey defaultId = default(TKey);
             var entity = _dbSet.Where(predicate).Select(m => new { m.Id }).SingleOrDefault();
