@@ -277,7 +277,7 @@ namespace OSharp.Core.Data.Entity
         }
 
         /// <summary>
-        /// 实体存在性检查
+        /// 检查实体是否存在
         /// </summary>
         /// <param name="predicate">查询条件谓语表达式</param>
         /// <param name="id">编辑的实体标识</param>
@@ -288,7 +288,7 @@ namespace OSharp.Core.Data.Entity
             var entity = _dbSet.Where(predicate).Select(m => new { m.Id }).SingleOrDefault();
             bool exists = (!(typeof(TKey).IsValueType) && id == null) || id.Equals(defaultId)
                 ? entity != null
-                : entity != null && entity.Id.Equals(defaultId);
+                : entity != null && entity.Id.Equals(id);
             return exists;
         }
 
@@ -414,6 +414,22 @@ namespace OSharp.Core.Data.Entity
             entity.CheckNotNull("entity");
             ((DbContext)_unitOfWork).Update<TEntity, TKey>(entity);
             return await SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 异步检查实体是否存在
+        /// </summary>
+        /// <param name="predicate">查询条件谓语表达式</param>
+        /// <param name="id">编辑的实体标识</param>
+        /// <returns>是否存在</returns>
+        public async Task<bool> CheckExistsAsync(Expression<Func<TEntity, bool>> predicate, TKey id = default(TKey))
+        {
+            TKey defaultId = default(TKey);
+            var entity = await _dbSet.Where(predicate).Select(m => new { m.Id }).SingleOrDefaultAsync();
+            bool exists = (!(typeof(TKey).IsValueType) && id == null) || id.Equals(defaultId)
+                ? entity != null
+                : entity != null && entity.Id.Equals(id);
+            return exists;
         }
 
         /// <summary>

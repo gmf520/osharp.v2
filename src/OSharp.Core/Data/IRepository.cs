@@ -126,7 +126,7 @@ namespace OSharp.Core.Data
             where TEditDto : IEditDto<TKey>;
 
         /// <summary>
-        /// 实体存在性检查
+        /// 检查实体是否存在
         /// </summary>
         /// <param name="predicate">查询条件谓语表达式</param>
         /// <param name="id">编辑的实体标识</param>
@@ -203,6 +203,14 @@ namespace OSharp.Core.Data
         /// <param name="entity">更新后的实体对象</param>
         /// <returns>操作影响的行数</returns>
         Task<int> UpdateAsync(TEntity entity);
+
+        /// <summary>
+        /// 异步检查实体是否存在
+        /// </summary>
+        /// <param name="predicate">查询条件谓语表达式</param>
+        /// <param name="id">编辑的实体标识</param>
+        /// <returns>是否存在</returns>
+        Task<bool> CheckExistsAsync(Expression<Func<TEntity, bool>> predicate, TKey id = default(TKey));
 
         /// <summary>
         /// 异步查找指定主键的实体

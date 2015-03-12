@@ -19,6 +19,9 @@ using OSharp.Utility.Filter;
 
 namespace OSharp.Core.Data.Extensions
 {
+    /// <summary>
+    /// 集合扩展辅助操作类
+    /// </summary>
     public static class CollectionExtensions
     {
         /// <summary>
