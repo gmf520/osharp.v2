@@ -23,7 +23,12 @@ namespace OSharp.Web.SignalR.Hubs
         public override IList<object> ResolveMethodParameters(MethodDescriptor method, IList<IJsonValue> values)
         {
             method.CheckNotNull("method" );
-            return method.Parameters.Zip(values, ResolveParameter).ToList();
+            if (values != null && values.Count > 0)
+            {
+                object value = values.First().ConvertTo(typeof(string));
+                return new List<object>() { value };
+            }
+            return method.Parameters.Zip(values, (descriptor, value) => ResolveParameter(descriptor, value)).ToList();
         }
 
     }

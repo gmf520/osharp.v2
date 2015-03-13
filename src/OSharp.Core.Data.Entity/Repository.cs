@@ -90,23 +90,23 @@ namespace OSharp.Core.Data.Entity
             List<string> names = new List<string>();
             foreach (TAddDto dto in dtos)
             {
-                TEntity entity = Mapper.Map<TEntity>(dto);
                 try
                 {
                     if (checkAction != null)
                     {
                         checkAction(dto);
                     }
+                    TEntity entity = Mapper.Map<TEntity>(dto);
                     if (updateFunc != null)
                     {
                         entity = updateFunc(dto, entity);
                     }
+                    _dbSet.Add(entity);
                 }
                 catch (Exception e)
                 {
                     return new OperationResult(OperationResultType.Error, e.Message);
                 }
-                _dbSet.Add(entity);
                 string name = GetNameValue(dto);
                 if (name != null)
                 {
@@ -134,6 +134,11 @@ namespace OSharp.Core.Data.Entity
             return SaveChanges();
         }
 
+        /// <summary>
+        /// 删除指定编号的实体
+        /// </summary>
+        /// <param name="key">实体编号</param>
+        /// <returns>操作影响的行数</returns>
         public virtual int Delete(TKey key)
         {
             CheckEntityKey(key, "key");
@@ -189,12 +194,12 @@ namespace OSharp.Core.Data.Entity
                     {
                         entity = deleteFunc(entity);
                     }
+                    _dbSet.Remove(entity);
                 }
                 catch (Exception e)
                 {
                     return new OperationResult(OperationResultType.Error, e.Message);
                 }
-                _dbSet.Remove(entity);
                 string name = GetNameValue(entity);
                 if (name != null)
                 {
@@ -239,28 +244,28 @@ namespace OSharp.Core.Data.Entity
             List<string> names = new List<string>();
             foreach (TEditDto dto in dtos)
             {
-                TEntity entity = _dbSet.Find(dto.Id);
-                if (entity == null)
-                {
-                    return new OperationResult(OperationResultType.QueryNull);
-                }
-                entity = Mapper.Map(dto, entity);
                 try
                 {
                     if (checkAction != null)
                     {
                         checkAction(dto);
                     }
+                    TEntity entity = _dbSet.Find(dto.Id);
+                    if (entity == null)
+                    {
+                        return new OperationResult(OperationResultType.QueryNull);
+                    }
+                    entity = Mapper.Map(dto, entity);
                     if (updateFunc != null)
                     {
                         entity = updateFunc(dto, entity);
                     }
+                    ((DbContext)_unitOfWork).Update<TEntity, TKey>(entity);
                 }
                 catch (Exception e)
                 {
                     return new OperationResult(OperationResultType.Error, e.Message);
                 }
-                ((DbContext)_unitOfWork).Update<TEntity, TKey>(entity);
                 string name = GetNameValue(dto);
                 if (name != null)
                 {
