@@ -288,7 +288,7 @@ namespace OSharp.Core.Data.Entity
             var entity = _dbSet.Where(predicate).Select(m => new { m.Id }).SingleOrDefault();
             bool exists = (!(typeof(TKey).IsValueType) && id == null) || id.Equals(defaultId)
                 ? entity != null
-                : entity != null && entity.Id.Equals(id);
+                : entity != null && !entity.Id.Equals(id);
             return exists;
         }
 
@@ -428,7 +428,7 @@ namespace OSharp.Core.Data.Entity
             var entity = await _dbSet.Where(predicate).Select(m => new { m.Id }).SingleOrDefaultAsync();
             bool exists = (!(typeof(TKey).IsValueType) && id == null) || id.Equals(defaultId)
                 ? entity != null
-                : entity != null && entity.Id.Equals(id);
+                : entity != null && !entity.Id.Equals(id);
             return exists;
         }
 
