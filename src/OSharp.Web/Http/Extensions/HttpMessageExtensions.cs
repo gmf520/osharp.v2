@@ -70,7 +70,7 @@ namespace OSharp.Web.Http.Extensions
                         msg = "请求的资源不存在";
                         break;
                     case HttpStatusCode.BadRequest:
-                        msg = "非法请求";
+                        msg = "请求中止";
                         break;
                     case HttpStatusCode.Forbidden:
                         msg = "请求被拒绝";
