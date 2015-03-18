@@ -7,18 +7,13 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Principal;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-using OSharp.Utility.Data;
 using OSharp.Web.Http.Extensions;
 using OSharp.Web.Security;
 
@@ -39,7 +34,7 @@ namespace OSharp.Web.Http.Filters
         /// <summary>
         /// 创建<see cref="OnlineUser"/>实例
         /// </summary>
-        protected abstract OnlineUser CreateOnlineUser(string name, HttpRequestMessage request);
+        public abstract OnlineUser CreateOnlineUser(string name, HttpRequestMessage request);
 
         /// <summary>
         /// Occurs before the action method is invoked.

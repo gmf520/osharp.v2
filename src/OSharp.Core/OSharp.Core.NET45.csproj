@@ -67,6 +67,7 @@
     <Compile Include="Data\Extensions\CollectionExtensions.cs" />
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="Data\IUnitOfWork.cs" />
+    <Compile Include="Data\TransactionalBehavior.cs" />
     <Compile Include="IDependency.cs" />
     <Compile Include="Logging\DataLog.cs" />
     <Compile Include="Logging\LogBase.cs" />

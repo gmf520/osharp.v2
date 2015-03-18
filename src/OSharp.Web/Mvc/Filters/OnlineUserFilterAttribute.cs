@@ -33,7 +33,7 @@ namespace OSharp.Web.Mvc.Filters
         /// <summary>
         /// 创建<see cref="OnlineUser"/>实例
         /// </summary>
-        protected abstract OnlineUser CreateOnlineUser(string name, HttpContextBase context);
+        public abstract OnlineUser CreateOnlineUser(string name, HttpContextBase context);
 
         #region Overrides of ActionFilterAttribute
 
