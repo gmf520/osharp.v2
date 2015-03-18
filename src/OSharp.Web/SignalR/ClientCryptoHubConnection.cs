@@ -101,10 +101,15 @@ namespace OSharp.Web.SignalR
             //加密传输数据
             HubInvocation hubData = this.JsonDeserializeObject<HubInvocation>(data);
             JToken[] args = hubData.Args;
-            if (args.Length > 0)
+            if (args != null && args.Length > 0)
             {
                 string encrypt = _cryptor.EncryptData(this.JsonSerializeObject(args));
-                hubData.Args = new[] { JToken.FromObject(encrypt, JsonSerializer) };
+                List<JToken> @params = new List<JToken>() { JToken.FromObject(encrypt, JsonSerializer) };
+                if (args.Length > 1)
+                {
+                    @params = @params.Concat(new JToken[args.Length - 1]).ToList();
+                }
+                hubData.Args = @params.ToArray();
                 data = this.JsonSerializeObject(hubData);
             }
 

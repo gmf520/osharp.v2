@@ -51,7 +51,8 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.AspNet.SignalR.Core">
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin">
@@ -140,6 +141,7 @@
     <Compile Include="Http\Extensions\HttpMessageExtensions.cs" />
     <Compile Include="Http\Filters\EnableCorsAttribute.cs" />
     <Compile Include="Http\Filters\ExceptionHandlingAttribute.cs" />
+    <Compile Include="Http\Filters\OnlineUserFilterBaseAttribute.cs" />
     <Compile Include="Http\Filters\ValidationAttribute.cs" />
     <Compile Include="Http\Formattings\CSVMediaTypeFormatter.cs" />
     <Compile Include="Http\Formattings\PlainTextFormatter.cs" />
@@ -200,6 +202,7 @@
     <Compile Include="Mvc\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Mvc\Filters\HandleAjaxErrorAttribute.cs" />
     <Compile Include="Mvc\Filters\NonRequireHttpsAttribute.cs" />
+    <Compile Include="Mvc\Filters\OnlineUserFilterAttribute.cs" />
     <Compile Include="Mvc\Routing\LowerCaseUrlConverter.cs" />
     <Compile Include="Mvc\Routing\RewriteLowerCaseUrlRoute.cs" />
     <Compile Include="Mvc\Routing\RewriteUrlRouteExtensions.cs" />
@@ -226,6 +229,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Security\OnlineType.cs" />
+    <Compile Include="Security\OnlineUser.cs" />
+    <Compile Include="Security\OnlineUserStoreBase.cs" />
     <Compile Include="SignalR\Hubs\ErrorHandlingHubPipelineModule.cs" />
     <Compile Include="SignalR\Hubs\VariableParameterResolver.cs" />
     <Compile Include="SignalR\Security\HostCryptoHubPipelineModule.cs" />

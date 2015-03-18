@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,6 +18,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 using Newtonsoft.Json;
 
 using OSharp.Utility;
+using OSharp.Utility.Extensions;
 using OSharp.Utility.Secutiry;
 using OSharp.Web.Http.Internal;
 using OSharp.Web.Properties;
@@ -66,11 +68,11 @@ namespace OSharp.Web.SignalR.Security
         /// <returns></returns>
         protected override bool OnBeforeIncoming(IHubIncomingInvokerContext context)
         {
-            _canCrypto = CanCrypto(context.Hub.Context);
-            if (!_canCrypto)
-            {
-                return base.OnBeforeIncoming(context);
-            }
+            //_canCrypto = CanCrypto(context.Hub.Context);
+            //if (!_canCrypto)
+            //{
+            //    return base.OnBeforeIncoming(context);
+            //}
             //数据解密
             string facePublicKey = context.Hub.Context.Headers.Get(HttpHeaderNames.OSharpClientPublicKey);
             if (string.IsNullOrEmpty(facePublicKey))
@@ -84,7 +86,8 @@ namespace OSharp.Web.SignalR.Security
                 string json = _cryptor.DecryptAndVerifyData(encrypt);
                 IList<object> args = JsonConvert.DeserializeObject<IList<object>>(json);
                 context.Args.Clear();
-                foreach (object arg in args)
+                IList<object> values = context.MethodDescriptor.Parameters.Zip(args, (desc, arg) => ResolveParameter(desc, arg)).ToList();
+                foreach (object arg in values)
                 {
                     context.Args.Add(arg);
                 }
@@ -99,10 +102,10 @@ namespace OSharp.Web.SignalR.Security
         /// <returns></returns>
         protected override bool OnBeforeOutgoing(IHubOutgoingInvokerContext context)
         {
-            if (!_canCrypto)
-            {
-                return base.OnBeforeOutgoing(context);
-            }
+            //if (!_canCrypto)
+            //{
+            //    return base.OnBeforeOutgoing(context);
+            //}
             //数据加密
             if (_cryptor == null)
             {
@@ -112,6 +115,20 @@ namespace OSharp.Web.SignalR.Security
             string encrypt = _cryptor.EncryptData(JsonConvert.SerializeObject(args));
             context.Invocation.Args = new object[] { encrypt };
             return base.OnBeforeOutgoing(context);
+        }
+
+        private object ResolveParameter(ParameterDescriptor descriptor, object value)
+        {
+            descriptor.CheckNotNull("descriptor" );
+            if (value == null)
+            {
+                return null;
+            }
+            if (value.GetType() == descriptor.ParameterType)
+            {
+                return value;
+            }
+            return value.CastTo(descriptor.ParameterType);
         }
     }
 }
