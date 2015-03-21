@@ -202,7 +202,7 @@
     <Compile Include="Mvc\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Mvc\Filters\HandleAjaxErrorAttribute.cs" />
     <Compile Include="Mvc\Filters\NonRequireHttpsAttribute.cs" />
-    <Compile Include="Mvc\Filters\OnlineUserFilterAttribute.cs" />
+    <Compile Include="Mvc\Filters\OnlineUserFilterBaseAttribute.cs" />
     <Compile Include="Mvc\Routing\LowerCaseUrlConverter.cs" />
     <Compile Include="Mvc\Routing\RewriteLowerCaseUrlRoute.cs" />
     <Compile Include="Mvc\Routing\RewriteUrlRouteExtensions.cs" />

@@ -115,6 +115,81 @@ namespace OSharp.Utility.Extensions
             return source.GroupBy(keySelector).Select(group => group.First());
         }
 
+        /// <summary>
+        /// 把<see cref="IEnumerable{T}"/>集合按指定字段与排序方式进行排序
+        /// </summary>
+        /// <typeparam name="T">集合项类型</typeparam>
+        /// <param name="source">要排序的数据集</param>
+        /// <param name="propertyName">排序属性名</param>
+        /// <param name="sortDirection">排序方向</param>
+        /// <returns>排序后的数据集</returns>
+        public static IOrderedEnumerable<T> OrderBy<T>(this IEnumerable<T>source, 
+            string propertyName,
+            ListSortDirection sortDirection = ListSortDirection.Ascending)
+        {
+            propertyName.CheckNotNullOrEmpty("propertyName" );
+            return CollectionPropertySorter<T>.OrderBy(source, propertyName, sortDirection);
+        }
+
+        /// <summary>
+        /// 把<see cref="IEnumerable{T}"/>集合按指定字段排序条件进行排序
+        /// </summary>
+        /// <typeparam name="T">动态类型</typeparam>
+        /// <param name="source">要排序的数据集</param>
+        /// <param name="sortCondition">列表字段排序条件</param>
+        /// <returns></returns>
+        public static IOrderedEnumerable<T> OrderBy<T>(this IEnumerable<T>source, SortCondition sortCondition )
+        {
+            sortCondition.CheckNotNull("sortCondition" );
+            return source.OrderBy(sortCondition.SortField, sortCondition.ListSortDirection);
+        }
+
+        /// <summary>
+        /// 把<see cref="IEnumerable{T}"/>集合按指定字段排序条件进行排序
+        /// </summary>
+        /// <typeparam name="T">动态类型</typeparam>
+        /// <param name="source">要排序的数据集</param>
+        /// <param name="sortCondition">列表字段排序条件</param>
+        /// <returns></returns>
+        public static IOrderedEnumerable<T> OrderBy<T>(this IEnumerable<T> source, SortCondition<T> sortCondition)
+        {
+            sortCondition.CheckNotNull("sortCondition");
+            return source.OrderBy(sortCondition.SortField, sortCondition.ListSortDirection);
+        }
+
+        /// <summary>
+        /// 把<see cref="IOrderedQueryable{T}"/>集合继续按指定字段排序方式进行排序
+        /// </summary>
+        /// <typeparam name="T">动态类型</typeparam>
+        /// <param name="source">要排序的数据集</param>
+        /// <param name="propertyName">排序属性名</param>
+        /// <param name="sortDirection">排序方向</param>
+        /// <returns></returns>
+        public static IOrderedEnumerable<T> ThenBy<T>(this IOrderedEnumerable<T> source,
+            string propertyName,
+            ListSortDirection sortDirection = ListSortDirection.Ascending)
+        {
+            source.CheckNotNull("source");
+            propertyName.CheckNotNullOrEmpty("propertyName");
+
+            return CollectionPropertySorter<T>.ThenBy(source, propertyName, sortDirection);
+        }
+
+        /// <summary>
+        /// 把<see cref="IOrderedEnumerable{T}"/>集合继续指定字段排序方式进行排序
+        /// </summary>
+        /// <typeparam name="T">动态类型</typeparam>
+        /// <param name="source">要排序的数据集</param>
+        /// <param name="sortCondition">列表字段排序条件</param>
+        /// <returns></returns>
+        public static IOrderedEnumerable<T> ThenBy<T>(this IOrderedEnumerable<T> source, SortCondition sortCondition)
+        {
+            source.CheckNotNull("source");
+            sortCondition.CheckNotNull("sortCondition");
+
+            return source.ThenBy(sortCondition.SortField, sortCondition.ListSortDirection);
+        }
+
         #endregion
 
         #region IQueryable的扩展
@@ -150,7 +225,7 @@ namespace OSharp.Utility.Extensions
             source.CheckNotNull("source");
             propertyName.CheckNotNullOrEmpty("propertyName");
 
-            return QueryablePropertySorter<T>.OrderBy(source, propertyName, sortDirection);
+            return CollectionPropertySorter<T>.OrderBy(source, propertyName, sortDirection);
         }
 
         /// <summary>
@@ -197,7 +272,7 @@ namespace OSharp.Utility.Extensions
             source.CheckNotNull("source");
             propertyName.CheckNotNullOrEmpty("propertyName");
 
-            return QueryablePropertySorter<T>.ThenBy(source, propertyName, sortDirection);
+            return CollectionPropertySorter<T>.ThenBy(source, propertyName, sortDirection);
         }
 
         /// <summary>

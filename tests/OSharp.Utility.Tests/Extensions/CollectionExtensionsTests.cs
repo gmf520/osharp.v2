@@ -80,6 +80,39 @@ namespace OSharp.Utility.Extensions.Tests
             CollectionAssert.AreEqual(source.DistinctBy(m => m).ToList(), actual);
         }
 
+        [TestMethod]
+        public void OrderByTest_IEnumerable()
+        {
+            IEnumerable<TestEntity> source = new List<TestEntity>
+            {
+                new TestEntity { Id = 1, Name = "abc" },
+                new TestEntity { Id = 4, Name = "fda", IsDeleted = true },
+                new TestEntity { Id = 6, Name = "rwg", IsDeleted = true },
+                new TestEntity { Id = 3, Name = "hdg" },
+            };
+
+            Assert.AreEqual(source.OrderBy("Id").ToArray()[1].Name, "hdg");
+            Assert.AreEqual(source.OrderBy("Name", ListSortDirection.Descending).ToArray()[3].Id, 1);
+            Assert.AreEqual(source.OrderBy(new SortCondition("Id")).ToArray()[1].Name, "hdg");
+            Assert.AreEqual(source.OrderBy(new SortCondition<TestEntity>(m => m.Id)).ToArray()[1].Name, "hdg");
+            Assert.AreEqual(source.OrderBy(new SortCondition<TestEntity>(m => m.Name.Length)).ToArray()[1].Name, "fda");
+            Assert.AreEqual(source.OrderBy(new SortCondition("Name", ListSortDirection.Descending)).ToArray()[3].Id, 1);
+        }
+
+        [TestMethod()]
+        public void ThenByTest_IEnumerable()
+        {
+            IEnumerable<TestEntity> source = new List<TestEntity>
+            {
+                new TestEntity { Id = 1, Name = "abc" },
+                new TestEntity { Id = 4, Name = "fda", IsDeleted = true },
+                new TestEntity { Id = 6, Name = "rwg", IsDeleted = true },
+                new TestEntity { Id = 3, Name = "hdg" },
+            };
+            Assert.AreEqual(source.OrderBy("IsDeleted").ThenBy("Id").ToArray()[2].Name, "fda");
+            Assert.AreEqual(source.OrderBy("IsDeleted", ListSortDirection.Descending).ThenBy("Id", ListSortDirection.Descending).ToArray()[2].Name,
+                "hdg");
+        }
         [TestMethod()]
         public void WhereIfTest_IQueryable()
         {

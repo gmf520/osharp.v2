@@ -6,11 +6,15 @@
 //  <last-date>2015-03-15 10:54</last-date>
 // -----------------------------------------------------------------------
 
+using System;
+
+
 namespace OSharp.Web.Security
 {
     /// <summary>
     /// 表示在线类型的枚举
     /// </summary>
+    [Serializable]
     public enum OnlineType
     {
         /// <summary>

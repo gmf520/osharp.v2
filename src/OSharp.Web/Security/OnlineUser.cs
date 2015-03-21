@@ -15,8 +15,17 @@ namespace OSharp.Web.Security
     /// <summary>
     /// 在线用户信息
     /// </summary>
+    [Serializable]
     public class OnlineUser
     {
+        /// <summary>
+        /// 初始化一个<see cref="OnlineUser"/>类型的新实例
+        /// </summary>
+        public OnlineUser()
+        {
+            RoleNames = new List<string>();
+        }
+
         /// <summary>
         /// 获取或设置 用户编号
         /// </summary>

@@ -20,7 +20,7 @@ using OSharp.Web.Security;
 namespace OSharp.Web.Mvc.Filters
 {
     /// <summary>
-    /// API在线用户过滤器基类，用于把Iprincipal.Identity转换为在线用户信息，或更新用户最后活动相关信息
+    /// 网站在线用户过滤器基类，用于把Iprincipal.Identity转换为在线用户信息，或更新用户最后活动相关信息
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public abstract class OnlineUserFilterBaseAttribute : ActionFilterAttribute
@@ -31,11 +31,17 @@ namespace OSharp.Web.Mvc.Filters
         public abstract OnlineUserStoreBase OnlineUserStore { get; }
 
         /// <summary>
+        /// 获取 忽略的活动地址
+        /// </summary>
+        public virtual string[] IgnoreActivityUrls
+        {
+            get { return new string[] { }; }
+        }
+
+        /// <summary>
         /// 创建<see cref="OnlineUser"/>实例
         /// </summary>
         public abstract OnlineUser CreateOnlineUser(string name, HttpContextBase context);
-
-        #region Overrides of ActionFilterAttribute
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -58,12 +64,14 @@ namespace OSharp.Web.Mvc.Filters
                     return;
                 }
             }
+            string url = context.Request.Path;
+            if (!context.Request.IsAjaxRequest() && !IgnoreActivityUrls.Contains(url))
+            {
+                user.LastActivityUrl = url;
+            }
             user.IpAddress = context.Request.UserHostAddress;
-            user.LastActivityUrl = context.Request.Path;
             user.LastActivityTime = DateTime.Now;
             OnlineUserStore.Set(user);
         }
-
-        #endregion
     }
 }
