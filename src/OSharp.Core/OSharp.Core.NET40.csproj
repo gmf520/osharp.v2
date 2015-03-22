@@ -53,6 +53,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,6 +61,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\CacheBase.cs" />
+    <Compile Include="Caching\CacheManager.cs" />
+    <Compile Include="Caching\ICache.cs" />
+    <Compile Include="Caching\ICacheProvider.cs" />
+    <Compile Include="Caching\InternalCacher.cs" />
+    <Compile Include="Caching\RuntimeMemoryCache.cs" />
+    <Compile Include="Caching\RuntimeMemoryCacheProvider.cs" />
     <Compile Include="Context\Operator.cs" />
     <Compile Include="Context\OSharpContext.cs" />
     <Compile Include="Data\EntityBase.cs" />
