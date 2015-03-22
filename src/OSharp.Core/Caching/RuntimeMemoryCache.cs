@@ -86,7 +86,7 @@ namespace OSharp.Core.Caching
         public override IEnumerable<object> GetAll()
         {
             string token = string.Concat(_region, ":");
-            return _cache.Where(m => m.Key.StartsWith(token)).Select(m => m.Value);
+            return _cache.Where(m => m.Key.StartsWith(token)).Select(m => m.Value).Cast<DictionaryEntry>().Select(m => m.Value);
         }
 
         /// <summary>
