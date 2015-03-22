@@ -1,12 +1,18 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="CollectionPropertySorter.cs" company="OSharp开源团队">
+//      Copyright (c) 2014-2015 OSharp. All rights reserved.
+//  </copyright>
+//  <last-editor>郭明锋</last-editor>
+//  <last-date>2015-03-20 12:10</last-date>
+// -----------------------------------------------------------------------
+
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 using OSharp.Utility.Exceptions;
 using OSharp.Utility.Properties;
@@ -15,13 +21,43 @@ using OSharp.Utility.Properties;
 namespace OSharp.Utility.Filter
 {
     /// <summary>
-    /// <see cref="IQueryable{T}"/>类型字符串排序操作类
+    /// 集合类型字符串排序操作类
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public static class QueryablePropertySorter<T>
+    /// <typeparam name="T">集合项类型</typeparam>
+    public static class CollectionPropertySorter<T>
     {
         // ReSharper disable StaticFieldInGenericType
         private static readonly ConcurrentDictionary<string, LambdaExpression> Cache = new ConcurrentDictionary<string, LambdaExpression>();
+
+        /// <summary>
+        /// 按指定的属性名称对<see cref="IEnumerable{T}"/>序列进行排序
+        /// </summary>
+        /// <param name="source"><see cref="IEnumerable{T}"/>序列</param>
+        /// <param name="propertyName">属性名称</param>
+        /// <param name="sortDirection">排序方向</param>
+        public static IOrderedEnumerable<T> OrderBy(IEnumerable<T> source, string propertyName, ListSortDirection sortDirection)
+        {
+            dynamic expression = GetKeySelector(propertyName);
+            dynamic keySelector = expression.Compile();
+            return sortDirection == ListSortDirection.Ascending
+                ? Enumerable.OrderBy(source, keySelector)
+                : Enumerable.OrderByDescending(source, keySelector);
+        }
+
+        /// <summary>
+        /// 按指定的属性名称对<see cref="IOrderedEnumerable{T}"/>进行继续排序
+        /// </summary>
+        /// <param name="source"><see cref="IOrderedEnumerable{T}"/>序列</param>
+        /// <param name="propertyName">属性名称</param>
+        /// <param name="sortDirection">排序方向</param>
+        public static IOrderedEnumerable<T> ThenBy(IOrderedEnumerable<T> source, string propertyName, ListSortDirection sortDirection)
+        {
+            dynamic expression = GetKeySelector(propertyName);
+            dynamic keySelector = expression.Compile();
+            return sortDirection == ListSortDirection.Ascending
+                ? Enumerable.ThenBy(source, keySelector)
+                : Enumerable.ThenByDescending(source, keySelector);
+        }
 
         /// <summary>
         /// 按指定的属性名称对<see cref="IQueryable{T}"/>序列进行排序

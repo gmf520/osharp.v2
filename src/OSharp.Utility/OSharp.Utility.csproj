@@ -118,7 +118,7 @@
     <Compile Include="Filter\FilterOperate.cs" />
     <Compile Include="Filter\FilterRule.cs" />
     <Compile Include="Filter\OperateCodeAttribute.cs" />
-    <Compile Include="Filter\QueryablePropertySorter.cs" />
+    <Compile Include="Filter\CollectionPropertySorter.cs" />
     <Compile Include="IO\DirectoryHelper.cs" />
     <Compile Include="IO\FileHelper.cs" />
     <Compile Include="Logging\LoggerAdapterBase.cs" />

@@ -7,6 +7,7 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Principal;
@@ -32,6 +33,14 @@ namespace OSharp.Web.Http.Filters
         public abstract OnlineUserStoreBase OnlineUserStore { get; }
 
         /// <summary>
+        /// 获取 忽略的活动地址
+        /// </summary>
+        public virtual string[] IgnoreActivityUrls
+        {
+            get { return new string[] { }; }
+        }
+
+        /// <summary>
         /// 创建<see cref="OnlineUser"/>实例
         /// </summary>
         public abstract OnlineUser CreateOnlineUser(string name, HttpRequestMessage request);
@@ -48,7 +57,7 @@ namespace OSharp.Web.Http.Filters
             IPrincipal principal = Thread.CurrentPrincipal;
 #endif
             //用户未登录，不统计游客信息
-            if (!principal.Identity.IsAuthenticated)
+            if ( principal == null || !principal.Identity.IsAuthenticated)
             {
                 return;
             }
@@ -66,8 +75,12 @@ namespace OSharp.Web.Http.Filters
                     return;
                 }
             }
+            string url = actionContext.Request.RequestUri.AbsolutePath;
+            if (!IgnoreActivityUrls.Contains(url))
+            {
+                user.LastActivityUrl = url;
+            }
             user.IpAddress = actionContext.Request.GetClientIpAddress();
-            user.LastActivityUrl = actionContext.Request.RequestUri.AbsolutePath;
             user.LastActivityTime = DateTime.Now;
             OnlineUserStore.Set(user);
         }
