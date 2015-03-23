@@ -75,6 +75,7 @@
     <Compile Include="DatabaseInitializer.cs" />
     <Compile Include="DataHelper.cs" />
     <Compile Include="EntityConfigurationBase.cs" />
+    <Compile Include="Extensions\AutoMapperExtension.cs" />
     <Compile Include="Extensions\DbContextExtensions.cs" />
     <Compile Include="IEntityMapper.cs" />
     <Compile Include="Migrations\CreateDatabaseIfNotExistsWithSeed.cs" />
