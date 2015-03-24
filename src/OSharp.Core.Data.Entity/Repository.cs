@@ -3,20 +3,17 @@
 //      Copyright (c) 2014-2015 OSharp. All rights reserved.
 //  </copyright>
 //  <last-editor>郭明锋</last-editor>
-//  <last-date>2015-02-06 15:46</last-date>
+//  <last-date>2015-03-24 15:22</last-date>
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-using AutoMapper;
-
+using OSharp.Core.Data.Entity.Extensions;
 using OSharp.Utility;
 using OSharp.Utility.Data;
 using OSharp.Utility.Extensions;
@@ -34,6 +31,9 @@ namespace OSharp.Core.Data.Entity
         private readonly DbSet<TEntity> _dbSet;
         private readonly IUnitOfWork _unitOfWork;
 
+        /// <summary>
+        /// 初始化一个<see cref="Repository{TEntity, TKey}"/>类型的新实例
+        /// </summary>
         public Repository(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -97,7 +97,7 @@ namespace OSharp.Core.Data.Entity
                     {
                         checkAction(dto);
                     }
-                    TEntity entity = Mapper.Map<TEntity>(dto);
+                    TEntity entity = dto.MapTo<TEntity>();
                     if (updateFunc != null)
                     {
                         entity = updateFunc(dto, entity);
@@ -256,7 +256,7 @@ namespace OSharp.Core.Data.Entity
                     {
                         return new OperationResult(OperationResultType.QueryNull);
                     }
-                    entity = Mapper.Map(dto, entity);
+                    entity = dto.MapTo(entity);
                     if (updateFunc != null)
                     {
                         entity = updateFunc(dto, entity);
@@ -292,7 +292,7 @@ namespace OSharp.Core.Data.Entity
         {
             TKey defaultId = default(TKey);
             var entity = _dbSet.Where(predicate).Select(m => new { m.Id }).SingleOrDefault();
-            bool exists = (!(typeof(TKey).IsValueType) && id == null) || id.Equals(defaultId)
+            bool exists = (!(typeof(TKey).IsValueType) && id.Equals(null)) || id.Equals(defaultId)
                 ? entity != null
                 : entity != null && !entity.Id.Equals(id);
             return exists;
@@ -447,7 +447,7 @@ namespace OSharp.Core.Data.Entity
         {
             TKey defaultId = default(TKey);
             var entity = await _dbSet.Where(predicate).Select(m => new { m.Id }).SingleOrDefaultAsync();
-            bool exists = (!(typeof(TKey).IsValueType) && id == null) || id.Equals(defaultId)
+            bool exists = (!(typeof(TKey).IsValueType) && id.Equals(null)) || id.Equals(defaultId)
                 ? entity != null
                 : entity != null && !entity.Id.Equals(id);
             return exists;

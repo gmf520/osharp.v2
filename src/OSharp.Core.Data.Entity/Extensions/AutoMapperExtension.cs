@@ -1,13 +1,10 @@
-﻿/************************************************************************ 
- * 项目名称 :  Cares.Service.Common.Extensions   
- * 项目描述 :      
- * 类 名 称 :  AutoMapperExtension 
- * 版 本 号 :  v1.0.0.0  
- * 说    明 :      
- * 作    者 :  Administrator 
- * 创建时间 :  2015/3/4 10:43:21 
- * 更新时间 :  2015/3/4 10:43:21 
-************************************************************************/
+﻿// -----------------------------------------------------------------------
+//  <copyright file="AutoMapperExtension.cs" company="OSharp开源团队">
+//      Copyright (c) 2014-2015 OSharp. All rights reserved.
+//  </copyright>
+//  <last-editor>郭明锋</last-editor>
+//  <last-date>2015-03-24 15:02</last-date>
+// -----------------------------------------------------------------------
 
 using System;
 using System.Collections;
@@ -19,41 +16,32 @@ using AutoMapper;
 namespace OSharp.Core.Data.Entity.Extensions
 {
     /// <summary>
-    /// AutoMapper扩展方法
-    /// 使用：obj.MapTo<Entity/>()
+    /// AutoMapper 辅助扩展方法
     /// </summary>
     public static class AutoMapperExtension
     {
         /// <summary>
-        /// 集合 ==> 集合
+        /// 创建映射，使用源对象创建目标对象
         /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="self"></param>
-        /// <returns></returns>
-        public static List<TResult> MapTo<TResult>(this IEnumerable self)
+        /// <typeparam name="TTarget">目标类型</typeparam>
+        /// <param name="source">源对象</param>
+        /// <returns>创建的目标对象</returns>
+        public static TTarget MapTo<TTarget>(this object source)
         {
-            if (self == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            return (List<TResult>)Mapper.Map(self, self.GetType(), typeof(List<TResult>));
+            return Mapper.Map<TTarget>(source);
         }
 
         /// <summary>
-        /// 对象 ==> 对象
+        /// 更新映射，使用源对象更新目标对象
         /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="self"></param>
-        /// <returns></returns>
-        public static TResult MapTo<TResult>(this object self)
+        /// <typeparam name="TSource">源类型</typeparam>
+        /// <typeparam name="TTarget">目标类型</typeparam>
+        /// <param name="source">源对象</param>
+        /// <param name="target">要更新的目标对象</param>
+        /// <returns>更新后的目标对象</returns>
+        public static TTarget MapTo<TSource, TTarget>(this TSource source, TTarget target )
         {
-            if (self == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            return (TResult)Mapper.Map(self, self.GetType(), typeof(TResult));
+            return Mapper.Map<TSource, TTarget>(source, target);
         }
     }
 }
