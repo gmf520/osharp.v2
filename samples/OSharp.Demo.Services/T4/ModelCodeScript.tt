@@ -1,0 +1,40 @@
+﻿<#@ template language="C#" debug="True" #>
+<#@ output extension="cs" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="$(ProjectDir)bin\Debug\OSharp.Utility.dll" #>
+<#@ assembly name="$(ProjectDir)bin\Debug\OSharp.Core.dll" #>
+<#@ assembly name="$(ProjectDir)bin\Debug\OSharp.Core.Data.Entity.dll" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="OSharp.Utility.Extensions" #>
+<#@ import namespace="OSharp.Utility.Develop.T4" #>
+<#@ import namespace="OSharp.Core.Data" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ include file="Include\EntityConfigurationTemplate.tt" #>
+<#
+    string currentPath = Path.GetDirectoryName(Host.TemplateFile);
+    string projectPath = currentPath.Substring(0, currentPath.IndexOf(@"\T4"));
+
+    string modelFile = Path.Combine(projectPath, @"bin\Debug\OSharp.Demo.Contracts.dll");
+    byte[] fileData = File.ReadAllBytes(modelFile);
+    Assembly assembly = Assembly.Load(fileData);
+    Type baseType = typeof(EntityBase<>);
+    IEnumerable<Type> modelTypes = assembly.GetTypes().Where(m => baseType.IsGenericAssignableFrom(m) && !m.IsAbstract);
+    foreach(Type modelType in modelTypes)
+    {
+        T4ModelInfo model = new T4ModelInfo(modelType, true);
+        //实体映射类
+        EntityConfigurationTemplate config = new EntityConfigurationTemplate(model);
+        string path = model.UseModuleDir
+            ? string.Format(@"{0}\ModelConfigurations\{1}", projectPath, model.ModuleName)
+            : string.Format(@"{0}\ModelConfigurations", projectPath);
+        config.Output.Encoding = Encoding.UTF8;
+        config.RenderToFile(Path.Combine(path, config.FileName));
+    }
+    
+ #>

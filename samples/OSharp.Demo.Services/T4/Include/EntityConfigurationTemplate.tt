@@ -1,0 +1,53 @@
+﻿<#+
+public class EntityConfigurationTemplate : CSharpTemplate
+{
+    private T4ModelInfo _model;
+
+    public EntityConfigurationTemplate(T4ModelInfo model)
+    {
+        _model = model;
+    }
+
+    public string FileName
+    {
+        get{ return string.Format("{0}Configuration.generated.cs", _model.Name); }
+    }
+
+	public override string TransformText()
+	{
+		base.TransformText();
+#>
+
+using System;
+
+using OSharp.Core.Data.Entity;
+
+using <#= _model.Namespace #>;
+
+
+namespace OSharp.Demo.ModelConfigurations<#= _model.UseModuleDir ? "." + _model.ModuleName : null #>
+{
+    /// <summary>
+    /// 实体类-数据表映射——<#= _model.Description #>
+    /// </summary> 
+	public partial class <#= _model.Name #>Configuration : EntityConfigurationBase<<#= _model.Name #>, <#= _model.KeyType == null ? "int" : _model.KeyType.Name #>>
+    { 
+        /// <summary>
+        /// 初始化一个<see cref="<#= _model.Name #>Configuration"/>类型的新实例
+        /// </summary>
+        public <#= _model.Name #>Configuration()
+        {
+            <#= _model.Name #>ConfigurationAppend();
+        }
+
+        /// <summary>
+        /// 额外的数据映射
+        /// </summary>
+        partial void <#= _model.Name #>ConfigurationAppend();
+    }
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+	}
+}
+#>
