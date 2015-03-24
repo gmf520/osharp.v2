@@ -33,18 +33,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{2DFA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Demo.Web", "samples\OSharp.Demo.Web\OSharp.Demo.Web.csproj", "{9FD5C648-E310-41F2-A905-517514E9E4E2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{88A2473B-8A63-4192-A2B7-15EF8C1EC938}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{95964771-8E61-477C-9361-AD569DCE74BA}"
 	ProjectSection(SolutionItems) = preProject
 		docs\OSharp开发框架架构示图.png = docs\OSharp开发框架架构示图.png
 		docs\OSharp开发框架架构示图.vsd = docs\OSharp开发框架架构示图.vsd
 		docs\日志模块示图.vsd = docs\日志模块示图.vsd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A7EB79BC-6AFA-4299-9E53-A7F5436E651D}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
 Global
