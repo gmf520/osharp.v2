@@ -6,16 +6,12 @@
 //  <last-date>2015-01-08 0:20</last-date>
 // -----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 using OSharp.Core.Data;
 
 
-namespace OSharp.Demo.Web.Models
+namespace OSharp.Demo.Models.Identity
 {
     /// <summary>
     /// 实体类——用户扩展信息

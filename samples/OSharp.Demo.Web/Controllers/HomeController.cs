@@ -12,8 +12,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using OSharp.Demo.Web.Models;
-using OSharp.Demo.Web.Services;
 using OSharp.Utility.Extensions;
 using OSharp.Utility.Logging;
 
@@ -23,12 +21,6 @@ namespace OSharp.Demo.Web.Controllers
     public class HomeController : Controller
     {
         private static readonly ILogger Logger = LogManager.GetLogger(typeof(HomeController));
-        private readonly IIdentityContract _identityContract;
-
-        public HomeController(IIdentityContract identityContract)
-        {
-            _identityContract = identityContract;
-        }
 
         public ActionResult Index()
         {
@@ -42,17 +34,6 @@ namespace OSharp.Demo.Web.Controllers
             //};
             //ViewBag.Data = data.ToDynamic();
             //return View();
-        }
-    }
-
-
-    public class TestFilterAttribute : AuthorizeAttribute
-    {
-        public IIdentityContract IdentityContract { get; set; }
-
-        public override void OnAuthorization(AuthorizationContext filterContext)
-        {
-            bool flag = IdentityContract == null;
         }
     }
 }

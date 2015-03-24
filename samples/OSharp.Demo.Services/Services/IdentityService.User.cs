@@ -1,15 +1,24 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="IdentityService.User.cs" company="OSharp开源团队">
+//      Copyright (c) 2014-2015 OSharp. All rights reserved.
+//  </copyright>
+//  <last-editor>郭明锋</last-editor>
+//  <last-date>2015-03-24 17:25</last-date>
+// -----------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-using OSharp.Demo.Web.Dtos;
-using OSharp.Demo.Web.Models;
+using OSharp.Demo.Dtos.Identity;
+using OSharp.Demo.Models.Identity;
 using OSharp.Utility.Data;
 
 
-namespace OSharp.Demo.Web.Services.Impl
+namespace OSharp.Demo.Services
 {
     public partial class IdentityService
     {
@@ -18,7 +27,7 @@ namespace OSharp.Demo.Web.Services.Impl
         /// <summary>
         /// 获取 用户信息查询数据集
         /// </summary>
-        public IQueryable<User> Users { get { return _userRepository.Entities; } }
+        public IQueryable<User> Users { get { return UserRepository.Entities; } }
 
         /// <summary>
         /// 检查用户信息信息是否存在

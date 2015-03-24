@@ -6,15 +6,10 @@
 //  <last-date>2015-01-08 0:31</last-date>
 // -----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
 using OSharp.Core.Data;
 
 
-namespace OSharp.Demo.Web.Dtos
+namespace OSharp.Demo.Dtos.Identity
 {
     public class UserDto : IAddDto, IEditDto<int>
     {

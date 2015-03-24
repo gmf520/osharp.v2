@@ -11,12 +11,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Web;
 
 using OSharp.Core.Data;
 
 
-namespace OSharp.Demo.Web.Models
+namespace OSharp.Demo.Models.Identity
 {
     /// <summary>
     /// 实体类——组织机构信息

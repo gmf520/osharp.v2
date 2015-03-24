@@ -4,18 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{454FA3C0-3DBC-4C0B-A58B-DF115405E2D0}</ProjectGuid>
+    <ProjectGuid>{2E6D22C7-37D5-4F1F-8D3E-2BCBD8F71B88}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OSharp.Core.Data.Entity</RootNamespace>
-    <AssemblyName>OSharp.Core.Data.Entity</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>OSharp.Demo</RootNamespace>
+    <AssemblyName>OSharp.Demo.Contracts</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -23,30 +18,18 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\OSharp.Core.Data.Entity.NET40\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <Prefer32Bit>false</Prefer32Bit>
-    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
-    <DocumentationFile>bin\OSharp.Core.Data.Entity.NET40\Debug\OSharp.Core.Data.Entity.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\OSharp.Core.Data.Entity.NET40\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\OSharp.Core.Data.Entity.NET40\Release\OSharp.Core.Data.Entity.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>OSharp.Keys.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper">
@@ -55,15 +38,18 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\..\packages\AutoMapper.3.3.0\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net40\EntityFramework.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="OSharp.Core">
+      <HintPath>..\..\packages\OSharp.Core.2.0.13\lib\net45\OSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="OSharp.Utility">
+      <HintPath>..\..\packages\OSharp.Utility.2.0.10\lib\net40\OSharp.Utility.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -72,36 +58,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeFirstDbContext.cs" />
-    <Compile Include="DatabaseInitializer.cs" />
-    <Compile Include="DataHelper.cs" />
-    <Compile Include="EntityConfigurationBase.cs" />
-    <Compile Include="Extensions\AutoMapperExtension.cs" />
-    <Compile Include="Extensions\DbContextExtensions.cs" />
-    <Compile Include="IEntityMapper.cs" />
-    <Compile Include="Migrations\CreateDatabaseIfNotExistsWithSeed.cs" />
-    <Compile Include="Migrations\IDataInitialize.cs" />
-    <Compile Include="Migrations\ISeedAction.cs" />
-    <Compile Include="Migrations\MigrationsConfiguration.cs" />
+    <Compile Include="Contracts\IIdentityContract.cs" />
+    <Compile Include="Dtos\DtoMappers.cs" />
+    <Compile Include="Dtos\Identity\OrganizationDto.cs" />
+    <Compile Include="Dtos\Identity\RoleDto.cs" />
+    <Compile Include="Dtos\Identity\UserDto.cs" />
+    <Compile Include="Models\Identity\Organization.cs" />
+    <Compile Include="Models\Identity\Role.cs" />
+    <Compile Include="Models\Identity\User.cs" />
+    <Compile Include="Models\Identity\UserExtend.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <None Include="OSharp.Keys.snk" />
-    <None Include="packages.OSharp.Core.Data.Entity.NET40.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OSharp.Core\OSharp.Core.NET40.csproj">
-      <Project>{c30e514d-70e9-4e36-9a6d-1fa970898a61}</Project>
-      <Name>OSharp.Core.NET40</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OSharp.Utility\OSharp.Utility.csproj">
-      <Project>{946E0A0A-8280-46B3-893E-1B00A554CCAB}</Project>
-      <Name>OSharp.Utility</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\AutoMapper.3.3.0\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.0\tools\AutoMapper.targets')" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -109,6 +81,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <Import Project="..\..\packages\AutoMapper.3.3.0\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.0\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

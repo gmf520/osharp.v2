@@ -1,9 +1,9 @@
 ﻿// -----------------------------------------------------------------------
 //  <copyright file="IIdentityContract.cs" company="OSharp开源团队">
-//      Copyright (c) 2015 OSharp. All rights reserved.
+//      Copyright (c) 2014-2015 OSharp. All rights reserved.
 //  </copyright>
 //  <last-editor>郭明锋</last-editor>
-//  <last-date>2015-01-07 23:20</last-date>
+//  <last-date>2015-03-24 16:13</last-date>
 // -----------------------------------------------------------------------
 
 using System;
@@ -14,15 +14,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 using OSharp.Core;
-using OSharp.Demo.Web.Dtos;
-using OSharp.Demo.Web.Models;
+using OSharp.Demo.Dtos.Identity;
+using OSharp.Demo.Models.Identity;
 using OSharp.Utility.Data;
 
 
-namespace OSharp.Demo.Web.Services
+namespace OSharp.Demo.Contracts
 {
     /// <summary>
-    /// 业务契约——账户模块
+    /// 业务契约——身份认证模块
     /// </summary>
     public interface IIdentityContract : IDependency
     {
@@ -64,44 +64,6 @@ namespace OSharp.Demo.Web.Services
 
         #endregion
 
-        #region 用户信息业务
-
-        /// <summary>
-        /// 获取 用户信息查询数据集
-        /// </summary>
-        IQueryable<User> Users { get; }
-
-        /// <summary>
-        /// 检查用户信息信息是否存在
-        /// </summary>
-        /// <param name="predicate">检查谓语表达式</param>
-        /// <param name="id">更新的用户信息编号</param>
-        /// <returns>用户信息是否存在</returns>
-        bool CheckUserExists(Expression<Func<User, bool>> predicate, int id = 0);
-
-        /// <summary>
-        /// 添加用户信息信息
-        /// </summary>
-        /// <param name="dtos">要添加的用户信息DTO信息</param>
-        /// <returns>业务操作结果</returns>
-        OperationResult AddUsers(params UserDto[] dtos);
-
-        /// <summary>
-        /// 更新用户信息信息
-        /// </summary>
-        /// <param name="dtos">包含更新信息的用户信息DTO信息</param>
-        /// <returns>业务操作结果</returns>
-        OperationResult EditUsers(params UserDto[] dtos);
-
-        /// <summary>
-        /// 删除用户信息信息
-        /// </summary>
-        /// <param name="ids">要删除的用户信息编号</param>
-        /// <returns>业务操作结果</returns>
-        OperationResult DeleteUsers(params int[] ids);
-
-        #endregion
-
         #region 角色信息业务
 
         /// <summary>
@@ -137,6 +99,44 @@ namespace OSharp.Demo.Web.Services
         /// <param name="ids">要删除的角色信息编号</param>
         /// <returns>业务操作结果</returns>
         OperationResult DeleteRoles(params int[] ids);
+
+        #endregion
+
+        #region 用户信息业务
+
+        /// <summary>
+        /// 获取 用户信息查询数据集
+        /// </summary>
+        IQueryable<User> Users { get; }
+
+        /// <summary>
+        /// 检查用户信息信息是否存在
+        /// </summary>
+        /// <param name="predicate">检查谓语表达式</param>
+        /// <param name="id">更新的用户信息编号</param>
+        /// <returns>用户信息是否存在</returns>
+        bool CheckUserExists(Expression<Func<User, bool>> predicate, int id = 0);
+
+        /// <summary>
+        /// 添加用户信息信息
+        /// </summary>
+        /// <param name="dtos">要添加的用户信息DTO信息</param>
+        /// <returns>业务操作结果</returns>
+        OperationResult AddUsers(params UserDto[] dtos);
+
+        /// <summary>
+        /// 更新用户信息信息
+        /// </summary>
+        /// <param name="dtos">包含更新信息的用户信息DTO信息</param>
+        /// <returns>业务操作结果</returns>
+        OperationResult EditUsers(params UserDto[] dtos);
+
+        /// <summary>
+        /// 删除用户信息信息
+        /// </summary>
+        /// <param name="ids">要删除的用户信息编号</param>
+        /// <returns>业务操作结果</returns>
+        OperationResult DeleteUsers(params int[] ids);
 
         #endregion
     }

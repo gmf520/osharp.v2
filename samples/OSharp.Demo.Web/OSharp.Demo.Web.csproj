@@ -427,6 +427,8 @@
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_DataGridLayout.cshtml" />
     <Content Include="Areas\Admin\Views\Roles\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Organizations\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_TreeGridLayout.cshtml" />
     <None Include="Scripts\jquery-1.11.1.intellisense.js" />
     <Content Include="Scripts\easyloader.js" />
     <Content Include="Scripts\jquery-1.11.1.js" />
@@ -468,35 +470,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminBaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\Identity\OrganizationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\Identity\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\Identity\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Dtos\DtoMappers.cs" />
-    <Compile Include="Dtos\Identity\OrganizationDto.cs" />
-    <Compile Include="Dtos\Identity\RoleDto.cs" />
-    <Compile Include="Dtos\Identity\UserDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logging\Log4NetLog.cs" />
     <Compile Include="Logging\Log4NetLoggerAdapter.cs" />
-    <Compile Include="Models\EntityConfigurations\Identity\OrganizationConfiguration.cs" />
-    <Compile Include="Models\EntityConfigurations\Identity\RoleConfiguration.cs" />
-    <Compile Include="Models\EntityConfigurations\Identity\UserConfiguration.cs" />
-    <Compile Include="Models\EntityConfigurations\Identity\UserExtendConfiguration.cs" />
-    <Compile Include="Models\Identity\Organization.cs" />
-    <Compile Include="Models\Identity\Role.cs" />
-    <Compile Include="Models\Identity\User.cs" />
-    <Compile Include="Models\Identity\UserExtend.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IIdentityContract.cs" />
-    <Compile Include="Services\Impl\IdentitySeedAction.cs" />
-    <Compile Include="Services\Impl\IdentityService.cs" />
-    <Compile Include="Services\Impl\IdentityService.Organization.cs" />
-    <Compile Include="Services\Impl\IdentityService.Roles.cs" />
-    <Compile Include="Services\Impl\IdentityService.Users.cs" />
     <Compile Include="ViewModels\TreeNode.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -516,10 +501,16 @@
       <Project>{d2ac8387-fc21-4e8e-810b-c0a637d44222}</Project>
       <Name>OSharp.Web.NET45</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OSharp.Demo.Contracts\OSharp.Demo.Contracts.csproj">
+      <Project>{2e6d22c7-37d5-4f1f-8d3e-2bcbd8f71b88}</Project>
+      <Name>OSharp.Demo.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OSharp.Demo.Services\OSharp.Demo.Services.csproj">
+      <Project>{7d538b40-8c72-42ff-bdc6-135f22230eee}</Project>
+      <Name>OSharp.Demo.Services</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Views\Organizations\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

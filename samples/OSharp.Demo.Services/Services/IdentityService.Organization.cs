@@ -1,25 +1,26 @@
 ﻿// -----------------------------------------------------------------------
 //  <copyright file="IdentityService.Organization.cs" company="OSharp开源团队">
-//      Copyright (c) 2015 OSharp. All rights reserved.
+//      Copyright (c) 2014-2015 OSharp. All rights reserved.
 //  </copyright>
 //  <last-editor>郭明锋</last-editor>
-//  <last-date>2015-01-08 0:32</last-date>
+//  <last-date>2015-03-24 17:09</last-date>
 // -----------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-using OSharp.Demo.Web.Dtos;
-using OSharp.Demo.Web.Models;
+using OSharp.Demo.Dtos.Identity;
+using OSharp.Demo.Models.Identity;
 using OSharp.Utility;
 using OSharp.Utility.Data;
 using OSharp.Utility.Extensions;
 
 
-namespace OSharp.Demo.Web.Services.Impl
+namespace OSharp.Demo.Services
 {
     public partial class IdentityService
     {
@@ -28,7 +29,10 @@ namespace OSharp.Demo.Web.Services.Impl
         /// <summary>
         /// 获取 组织机构信息查询数据集
         /// </summary>
-        public IQueryable<Organization> Organizations { get { return _organizationRepository.Entities; } }
+        public IQueryable<Organization> Organizations
+        {
+            get { return OrganizationRepository.Entities; }
+        }
 
         /// <summary>
         /// 检查组织机构信息信息是否存在
@@ -38,7 +42,7 @@ namespace OSharp.Demo.Web.Services.Impl
         /// <returns>组织机构信息是否存在</returns>
         public bool CheckOrganizationExists(Expression<Func<Organization, bool>> predicate, int id = 0)
         {
-            return _organizationRepository.CheckExists(predicate, id);
+            return OrganizationRepository.CheckExists(predicate, id);
         }
 
         /// <summary>
@@ -50,19 +54,19 @@ namespace OSharp.Demo.Web.Services.Impl
         {
             dtos.CheckNotNull("dtos");
             List<Organization> organizations = new List<Organization>();
-            OperationResult result = _organizationRepository.Insert(dtos,
+            OperationResult result = OrganizationRepository.Insert(dtos,
                 dto =>
                 {
-                    if (_organizationRepository.CheckExists(m => m.Name == dto.Name))
+                    if (OrganizationRepository.CheckExists(m => m.Name == dto.Name))
                     {
-                        throw new Exception("组织机构名称“{0}”已存在，不能重复添加。".FormatWith(dto.Name));
+                        throw new Exception("名称为“{0}”的组织机构已存在，不能重复添加。".FormatWith(dto.Name));
                     }
                 },
                 (dto, entity) =>
                 {
                     if (dto.ParentId.HasValue && dto.ParentId.Value > 0)
                     {
-                        Organization parent = _organizationRepository.GetByKey(dto.ParentId.Value);
+                        Organization parent = OrganizationRepository.GetByKey(dto.ParentId.Value);
                         if (parent == null)
                         {
                             throw new Exception("指定父组织机构不存在。");
@@ -89,12 +93,12 @@ namespace OSharp.Demo.Web.Services.Impl
         {
             dtos.CheckNotNull("dtos");
             List<Organization> organizations = new List<Organization>();
-            OperationResult result = _organizationRepository.Update(dtos,
+            OperationResult result = OrganizationRepository.Update(dtos,
                 dto =>
                 {
-                    if (_organizationRepository.CheckExists(m => m.Name == dto.Name, dto.Id))
+                    if (OrganizationRepository.CheckExists(m => m.Name == dto.Name, dto.Id))
                     {
-                        throw new Exception("组织机构名称“{0}”已存在，不能重复添加。".FormatWith(dto.Name));
+                        throw new Exception("名称为“{0}”的组织机构已存在，不能重复添加。".FormatWith(dto.Name));
                     }
                 },
                 (dto, entity) =>
@@ -105,7 +109,7 @@ namespace OSharp.Demo.Web.Services.Impl
                     }
                     else if (entity.Parent != null && entity.Parent.Id != dto.ParentId)
                     {
-                        Organization parent = _organizationRepository.GetByKey(dto.Id);
+                        Organization parent = OrganizationRepository.GetByKey(dto.Id);
                         if (parent == null)
                         {
                             throw new Exception("指定父组织机构不存在。");
@@ -131,7 +135,7 @@ namespace OSharp.Demo.Web.Services.Impl
         public OperationResult DeleteOrganizations(params int[] ids)
         {
             ids.CheckNotNull("ids");
-            OperationResult result = _organizationRepository.Delete(ids,
+            OperationResult result = OrganizationRepository.Delete(ids,
                 entity =>
                 {
                     if (entity.Children.Any())
@@ -152,14 +156,14 @@ namespace OSharp.Demo.Web.Services.Impl
             {
                 return;
             }
-            List<Organization> organizations = _organizationRepository.GetInclude(m => m.Parent).Where(m => ids.Contains(m.Id)).ToList();
+            List<Organization> organizations = OrganizationRepository.GetInclude(m => m.Parent).Where(m => ids.Contains(m.Id)).ToList();
             UnitOfWork.TransactionEnabled = true;
-            foreach (var organization in organizations)
+            foreach (Organization organization in organizations)
             {
                 organization.TreePath = organization.Parent == null
                     ? organization.Id.ToString()
                     : organization.Parent.TreePathIds.Union(new[] { organization.Id }).ExpandAndToString();
-                _organizationRepository.Update(organization);
+                OrganizationRepository.Update(organization);
             }
             UnitOfWork.SaveChanges();
         }
