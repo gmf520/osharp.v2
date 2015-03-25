@@ -18,6 +18,9 @@ namespace OSharp.Demo.Models.Identity
     /// </summary>
     public class UserExtend : EntityBase<int>
     {
+        /// <summary>
+        /// 注册IP地址
+        /// </summary>
         [StringLength(15)]
         public string RegistedIp { get; set; }
 

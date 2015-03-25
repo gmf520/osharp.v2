@@ -12,6 +12,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using OSharp.Core.Properties;
+using OSharp.Utility.Logging;
+
 
 namespace OSharp.Core.Caching
 {
@@ -20,6 +23,7 @@ namespace OSharp.Core.Caching
     /// </summary>
     internal class InternalCacher : ICache
     {
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(InternalCacher));
         private readonly ICollection<ICache> _caches;
 
         /// <summary>
@@ -28,6 +32,10 @@ namespace OSharp.Core.Caching
         public InternalCacher(string region)
         {
             _caches = CacheManager.CacheProviders.Where(m => m.Enabled).Select(m => m.GetCache(region)).ToList();
+            if (_caches.Count == 0)
+            {
+                Logger.Warn(Resources.Caching_CacheNotInitialized);
+            }
         }
 
         #region Implementation of ICache

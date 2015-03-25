@@ -7,11 +7,8 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 using OSharp.Demo.Dtos.Identity;
 using OSharp.Demo.Models.Identity;
@@ -27,7 +24,10 @@ namespace OSharp.Demo.Services
         /// <summary>
         /// 获取 用户信息查询数据集
         /// </summary>
-        public IQueryable<User> Users { get { return UserRepository.Entities; } }
+        public IQueryable<User> Users
+        {
+            get { return UserRepository.Entities; }
+        }
 
         /// <summary>
         /// 检查用户信息信息是否存在
@@ -37,7 +37,7 @@ namespace OSharp.Demo.Services
         /// <returns>用户信息是否存在</returns>
         public bool CheckUserExists(Expression<Func<User, bool>> predicate, int id = 0)
         {
-            throw new NotImplementedException();
+            return UserRepository.CheckExists(predicate, id);
         }
 
         /// <summary>
@@ -66,6 +66,17 @@ namespace OSharp.Demo.Services
         /// <param name="ids">要删除的用户信息编号</param>
         /// <returns>业务操作结果</returns>
         public OperationResult DeleteUsers(params int[] ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 设置用户的角色
+        /// </summary>
+        /// <param name="id">用户编号</param>
+        /// <param name="roleIds">角色编号集合</param>
+        /// <returns>业务操作结果</returns>
+        public OperationResult SetUserRoles(int id, int[] roleIds)
         {
             throw new NotImplementedException();
         }

@@ -75,7 +75,7 @@ namespace OSharp.Demo.Services
         /// <returns>业务操作结果</returns>
         public OperationResult EditRoles(params RoleDto[] dtos)
         {
-            return RoleRepository.Insert(dtos,
+            return RoleRepository.Update(dtos,
                 dto =>
                 {
                     if (RoleRepository.CheckExists(m => m.Name == dto.Name && m.Organization.Id == dto.OrganizationId, dto.Id))

@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Demo.Contracts", "sa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Demo.Services", "samples\OSharp.Demo.Services\OSharp.Demo.Services.csproj", "{7D538B40-8C72-42FF-BDC6-135F22230EEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Demo.Consoles", "samples\OSharp.Demo.Consoles\OSharp.Demo.Consoles.csproj", "{40B1620B-9248-4965-AB4A-4DE71B1BFC5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +111,10 @@ Global
 		{7D538B40-8C72-42FF-BDC6-135F22230EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D538B40-8C72-42FF-BDC6-135F22230EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D538B40-8C72-42FF-BDC6-135F22230EEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40B1620B-9248-4965-AB4A-4DE71B1BFC5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40B1620B-9248-4965-AB4A-4DE71B1BFC5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40B1620B-9248-4965-AB4A-4DE71B1BFC5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40B1620B-9248-4965-AB4A-4DE71B1BFC5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,5 +134,6 @@ Global
 		{9FD5C648-E310-41F2-A905-517514E9E4E2} = {2DFA1EE8-C9D7-4A06-8490-C49EC170FE9F}
 		{2E6D22C7-37D5-4F1F-8D3E-2BCBD8F71B88} = {2DFA1EE8-C9D7-4A06-8490-C49EC170FE9F}
 		{7D538B40-8C72-42FF-BDC6-135F22230EEE} = {2DFA1EE8-C9D7-4A06-8490-C49EC170FE9F}
+		{40B1620B-9248-4965-AB4A-4DE71B1BFC5F} = {2DFA1EE8-C9D7-4A06-8490-C49EC170FE9F}
 	EndGlobalSection
 EndGlobal

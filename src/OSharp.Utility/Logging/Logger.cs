@@ -30,8 +30,8 @@ namespace OSharp.Utility.Logging
 
         public Logger(string name)
         {
-            _logs = LogManager.Adapters.Select(adapter => adapter.GetLogger(name)).ToList();
             EntryLevel = ConfigurationManager.AppSettings.Get("OSharp-EntryLogLevel").CastTo(LogLevel.Off);
+            _logs = LogManager.Adapters.Select(adapter => adapter.GetLogger(name)).ToList();
         }
 
         /// <summary>

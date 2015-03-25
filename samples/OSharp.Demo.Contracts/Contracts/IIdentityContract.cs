@@ -138,6 +138,14 @@ namespace OSharp.Demo.Contracts
         /// <returns>业务操作结果</returns>
         OperationResult DeleteUsers(params int[] ids);
 
+        /// <summary>
+        /// 设置用户的角色
+        /// </summary>
+        /// <param name="id">用户编号</param>
+        /// <param name="roleIds">角色编号集合</param>
+        /// <returns>业务操作结果</returns>
+        OperationResult SetUserRoles(int id, int[] roleIds);
+
         #endregion
     }
 }
