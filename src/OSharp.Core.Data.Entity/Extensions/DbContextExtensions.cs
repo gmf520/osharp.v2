@@ -24,6 +24,9 @@ using OSharp.Utility;
 
 namespace OSharp.Core.Data.Entity
 {
+    /// <summary>
+    /// 上下文扩展辅助操作类
+    /// </summary>
     public static class DbContextExtensions
     {
         /// <summary>

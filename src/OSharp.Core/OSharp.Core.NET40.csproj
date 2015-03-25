@@ -81,6 +81,7 @@
     <Compile Include="Logging\LogBase.cs" />
     <Compile Include="Logging\OperateLog.cs" />
     <Compile Include="Logging\SystemLog.cs" />
+    <Compile Include="Properties\Resources.Designer.cs" />
     <Compile Include="ServiceBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -93,7 +94,9 @@
       <Name>OSharp.Utility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
