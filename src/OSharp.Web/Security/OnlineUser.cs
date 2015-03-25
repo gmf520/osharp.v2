@@ -24,6 +24,7 @@ namespace OSharp.Web.Security
         public OnlineUser()
         {
             RoleNames = new List<string>();
+            UserData = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -79,7 +80,7 @@ namespace OSharp.Web.Security
         /// <summary>
         /// 获取或设置 用户数据
         /// </summary>
-        public object UserData { get; set; }
+        public Dictionary<string, object> UserData { get; set; }
 
         /// <summary>
         /// 获取或设置 IP地址
