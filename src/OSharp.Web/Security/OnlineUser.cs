@@ -77,6 +77,11 @@ namespace OSharp.Web.Security
         public OnlineType OnlineType { get; set; }
 
         /// <summary>
+        /// 获取或设置 用户数据
+        /// </summary>
+        public object UserData { get; set; }
+
+        /// <summary>
         /// 获取或设置 IP地址
         /// </summary>
         public string IpAddress { get; set; }
