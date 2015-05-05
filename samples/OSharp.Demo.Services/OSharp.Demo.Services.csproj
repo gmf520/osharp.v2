@@ -118,7 +118,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="T4\Include\EntityConfigurationTemplate.tt" />
     <None Include="T4\ModelCodeScript.tt">

@@ -9,6 +9,7 @@ using System.Web.Http;
 
 using OSharp.Utility;
 using OSharp.Utility.Exceptions;
+using OSharp.Utility.Logging;
 using OSharp.Utility.Secutiry;
 using OSharp.Web.Http.Internal;
 using OSharp.Web.Properties;
@@ -21,6 +22,7 @@ namespace OSharp.Web.Http.Security
     /// </summary>
     public class HostCryptoDelegatingHandler : DelegatingHandler
     {
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(HostCryptoDelegatingHandler));
         private readonly string _privateKey;
         private readonly string _hashType;
         private CommunicationCryptor _cryptor;
@@ -110,10 +112,13 @@ namespace OSharp.Web.Http.Security
             }
             catch (CryptographicException ex)
             {
-                return CreateResponseTask(request, HttpStatusCode.BadRequest, "服务器解析传输数据时发生异常。", ex);
+                const string message = "服务器解析传输数据时发生异常。";
+                Logger.Error(message, ex);
+                return CreateResponseTask(request, HttpStatusCode.BadRequest, message, ex);
             }
             catch (Exception ex)
             {
+                Logger.Error(Resources.Http_Security_Host_DecryptRequest_Failt, ex);
                 return CreateResponseTask(request, HttpStatusCode.BadRequest, Resources.Http_Security_Host_DecryptRequest_Failt, ex);
             }
         }
@@ -133,15 +138,16 @@ namespace OSharp.Web.Http.Security
             {
                 if (_cryptor != null)
                 {
-                    data = _cryptor.EncryptData(data); 
+                    data = _cryptor.EncryptData(data);
                 }
                 HttpContent content = new StringContent(data);
                 content.Headers.ContentType = response.Content.Headers.ContentType;
                 response.Content = content;
                 return response;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Logger.Error(Resources.Http_Security_Host_EncryptResponse_Failt, ex);
                 HttpError error = new HttpError(Resources.Http_Security_Host_EncryptResponse_Failt);
                 return response.RequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, error);
             }

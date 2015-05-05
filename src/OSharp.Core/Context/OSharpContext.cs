@@ -24,6 +24,7 @@ namespace OSharp.Core.Context
     {
         private const string CallContextKey = "__OSharp_CallContext";
         private const string OperatorKey = "__OSharp_Context_Operator";
+        private static readonly Lazy<OSharpContext> ContextLazy = new Lazy<OSharpContext>(() => new OSharpContext());
 
         /// <summary>
         /// 初始化一个<see cref="OSharpContext"/>类型的新实例
@@ -50,7 +51,7 @@ namespace OSharp.Core.Context
                 {
                     return context;
                 }
-                context = new OSharpContext();
+                context = ContextLazy.Value;
                 CallContext.LogicalSetData(CallContextKey, context);
                 return context;
             }

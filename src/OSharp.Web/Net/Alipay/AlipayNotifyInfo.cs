@@ -59,7 +59,9 @@ namespace OSharp.Web.Net.Alipay
             SellerActions = dict.ContainsKey("seller_actions") ? dict["seller_actions"] : null;
             GmtCreate = dict.ContainsKey("gmt_create") ? dict["gmt_create"].CastTo<DateTime>() : dict["notify_time"].CastTo<DateTime>();
             GmtPayment = dict.ContainsKey("gmt_payment") ? dict["gmt_payment"].CastTo<DateTime>() : dict["notify_time"].CastTo<DateTime>();
+            GmtSendGoods = dict.ContainsKey("gmt_send_goods") ? dict["gmt_send_goods"].CastTo<DateTime>() : dict["notify_time"].CastTo<DateTime>();
             GmtLogisticsModify = dict.ContainsKey("gmt_logistics_modify") ? dict["gmt_logistics_modify"].CastTo<DateTime>() : dict["notify_time"].CastTo<DateTime>();
+            GmtClose = dict.ContainsKey("gmt_close") ? dict["gmt_close"].CastTo<DateTime>() : dict["notify_time"].CastTo<DateTime>();
             GmtRefund = dict.ContainsKey("gmt_refund") ? dict["gmt_refund"].CastTo<DateTime>() : dict["notify_time"].CastTo<DateTime>();
         }
 
@@ -226,9 +228,19 @@ namespace OSharp.Web.Net.Alipay
         public DateTime GmtPayment { get; private set; }
 
         /// <summary>
+        /// 获取 发货时间
+        /// </summary>
+        public DateTime GmtSendGoods { get; private set; }
+
+        /// <summary>
         /// 获取 物流状态更新时间
         /// </summary>
         public DateTime GmtLogisticsModify { get; private set; }
+
+        /// <summary>
+        /// 获取 交易结束时间
+        /// </summary>
+        public DateTime GmtClose { get; private set; }
 
         /// <summary>
         /// 获取 交易退款时间

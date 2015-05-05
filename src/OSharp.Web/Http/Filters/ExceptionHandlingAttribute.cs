@@ -12,14 +12,20 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Http.Filters;
 
+using OSharp.Utility.Extensions;
 using OSharp.Utility.Logging;
+using OSharp.Web.Http.Extensions;
 
 
 namespace OSharp.Web.Http.Filters
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ExceptionHandlingAttribute : ExceptionFilterAttribute
     {
         private static readonly ILogger Logger = LogManager.GetLogger(typeof(ExceptionHandlingAttribute));
@@ -33,6 +39,9 @@ namespace OSharp.Web.Http.Filters
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static IDictionary<Type, HttpStatusCode> Mappings { get; private set; }
 
         public override void OnException(HttpActionExecutedContext actionExecutedContext)
@@ -43,7 +52,14 @@ namespace OSharp.Web.Http.Filters
             }
             HttpRequestMessage request = actionExecutedContext.Request;
             Exception exception = actionExecutedContext.Exception;
-            Logger.Error(exception.Message, exception);
+            string ip = actionExecutedContext.ActionContext.Request.GetClientIpAddress();
+#if NET45
+            string user = actionExecutedContext.ActionContext.RequestContext.Principal.Identity.Name;
+#else
+            string user = Thread.CurrentPrincipal.Identity.Name;
+#endif
+            string msg = "User:{0}，IP:{1}，Message:{2}".FormatWith(user, ip, exception.Message);
+            Logger.Error(msg, exception);
 
             if (actionExecutedContext.Exception is HttpException)
             {

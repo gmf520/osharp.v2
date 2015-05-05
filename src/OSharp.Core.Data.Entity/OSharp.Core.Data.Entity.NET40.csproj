@@ -91,7 +91,6 @@
     <Compile Include="Repository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="OSharp.Keys.snk" />
     <None Include="packages.OSharp.Core.Data.Entity.NET40.config" />
   </ItemGroup>

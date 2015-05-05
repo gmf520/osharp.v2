@@ -61,7 +61,7 @@ namespace OSharp.Web.Properties {
         }
         
         /// <summary>
-        ///   查找类似 返回数据处理错误，请尝试升级客户端以解决问题。 的本地化字符串。
+        ///   查找类似 返回数据处理错误，请重试操作。 的本地化字符串。
         /// </summary>
         internal static string Http_Seciruty_Client_DecryptResponse_Failt {
             get {
