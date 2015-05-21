@@ -52,7 +52,7 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -93,6 +93,7 @@
     <Compile Include="Drawing\ValidateCoder.cs" />
     <Compile Include="Drawing\ValidateCodeType.cs" />
     <Compile Include="Dynamic\Exposed.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Reflection\FastInvokeHandler.cs" />
     <Compile Include="Dynamic\MetaObject.cs" />
     <Compile Include="Exceptions\ExceptionMessage.cs" />
@@ -118,7 +119,7 @@
     <Compile Include="Filter\FilterOperate.cs" />
     <Compile Include="Filter\FilterRule.cs" />
     <Compile Include="Filter\OperateCodeAttribute.cs" />
-    <Compile Include="Filter\QueryablePropertySorter.cs" />
+    <Compile Include="Filter\CollectionPropertySorter.cs" />
     <Compile Include="IO\DirectoryHelper.cs" />
     <Compile Include="IO\FileHelper.cs" />
     <Compile Include="Logging\LoggerAdapterBase.cs" />

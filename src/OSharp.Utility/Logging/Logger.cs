@@ -7,6 +7,7 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
@@ -21,20 +22,17 @@ namespace OSharp.Utility.Logging
     /// </summary>
     internal sealed class Logger : ILogger
     {
+        private readonly ICollection<ILog> _logs; 
+
         public Logger(Type type)
             : this(type.FullName)
         { }
 
         public Logger(string name)
         {
-            Name = name;
             EntryLevel = ConfigurationManager.AppSettings.Get("OSharp-EntryLogLevel").CastTo(LogLevel.Off);
+            _logs = LogManager.Adapters.Select(adapter => adapter.GetLogger(name)).ToList();
         }
-
-        /// <summary>
-        /// 获取 日志记录者名称
-        /// </summary>
-        public string Name { get; private set; }
 
         /// <summary>
         /// 获取或设置 日志级别的入口控制，级别决定是否执行相应级别的日志记录功能
@@ -53,7 +51,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Trace(message);
             }
@@ -70,7 +68,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Trace(format, args);
             }
@@ -86,7 +84,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Debug(message);
             }
@@ -103,7 +101,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Debug(format, args);
             }
@@ -119,7 +117,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Info(message);
             }
@@ -136,7 +134,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Info(format, args);
             }
@@ -152,7 +150,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Warn(message);
             }
@@ -169,7 +167,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Warn(format, args);
             }
@@ -185,7 +183,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Error(message);
             }
@@ -202,7 +200,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Error(format, args);
             }
@@ -219,7 +217,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Error(message, exception);
             }
@@ -237,7 +235,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Error(format, exception, args);
             }
@@ -253,7 +251,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Fatal(message);
             }
@@ -270,7 +268,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Fatal(format, args);
             }
@@ -287,7 +285,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Fatal(message, exception);
             }
@@ -305,7 +303,7 @@ namespace OSharp.Utility.Logging
             {
                 return;
             }
-            foreach (ILog log in LogManager.Adapters.Select(adapter => adapter.GetLogger(Name)))
+            foreach (ILog log in _logs)
             {
                 log.Fatal(format, exception, args);
             }

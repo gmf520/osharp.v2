@@ -12,9 +12,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using OSharp.Demo.Web.Services;
 using OSharp.Demo.Web.ViewModels;
-using OSharp.Utility.Extensions;
 using OSharp.Utility.Logging;
 using OSharp.Web.Mvc.Security;
 
@@ -24,12 +22,6 @@ namespace OSharp.Demo.Web.Areas.Admin.Controllers
     public class HomeController : Controller
     {
         private static readonly ILogger Logger = LogManager.GetLogger(typeof(HomeController));
-        private readonly IIdentityContract _identityContract;
-
-        public HomeController(IIdentityContract identityContract)
-        {
-            _identityContract = identityContract;
-        }
 
         #region Ajax功能
 
@@ -108,12 +100,6 @@ namespace OSharp.Demo.Web.Areas.Admin.Controllers
 
         public ActionResult Welcome()
         {
-            ViewBag.Data = new
-            {
-                OrganizationCount = _identityContract.Organizations.Count(),
-                RoleCount = _identityContract.Roles.Count(),
-                UserCount = _identityContract.Users.Count()
-            }.ToDynamic();
             return View();
         }
     }

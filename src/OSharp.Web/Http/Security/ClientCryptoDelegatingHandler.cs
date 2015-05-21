@@ -8,6 +8,7 @@ using System.Web.Http;
 
 using OSharp.Utility;
 using OSharp.Utility.Exceptions;
+using OSharp.Utility.Logging;
 using OSharp.Utility.Secutiry;
 using OSharp.Web.Http.Internal;
 using OSharp.Web.Properties;
@@ -20,6 +21,7 @@ namespace OSharp.Web.Http.Security
     /// </summary>
     public class ClientCryptoDelegatingHandler : DelegatingHandler
     {
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(ClientCryptoDelegatingHandler));
         private readonly CommunicationCryptor _cryptor;
         private readonly string _clientPublicKey;
 
@@ -95,6 +97,7 @@ namespace OSharp.Web.Http.Security
             }
             catch (Exception ex)
             {
+                Logger.Error(Resources.Http_Security_Client_EncryptRequest_Failt, ex);
                 return CreateResponseTask(request, HttpStatusCode.BadRequest, Resources.Http_Security_Client_EncryptRequest_Failt, ex);
             }
         }
@@ -122,9 +125,9 @@ namespace OSharp.Web.Http.Security
                 response.Content = content;
                 return response;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //HttpError error = new HttpError(Resources.Http_Seciruty_Client_DecryptResponse_Failt);
+                Logger.Error(Resources.Http_Seciruty_Client_DecryptResponse_Failt, ex);
                 response = response.RequestMessage.CreateErrorResponse(HttpStatusCode.InternalServerError, Resources.Http_Seciruty_Client_DecryptResponse_Failt);
                 return response;
             }

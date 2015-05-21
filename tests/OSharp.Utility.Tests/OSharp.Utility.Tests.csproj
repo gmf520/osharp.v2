@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Extensions\BooleanExtensionsTests.cs" />
     <Compile Include="Extensions\CollectionExtensionsTests.cs" />
+    <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="Extensions\EnumExtensionsTests.cs" />
     <Compile Include="Extensions\ExpressionExtensionsTests.cs" />
     <Compile Include="Extensions\ObjectExtensionsTests.cs" />

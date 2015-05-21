@@ -13,8 +13,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using OSharp.Demo.Web.Dtos;
+using OSharp.Demo.Contracts;
+using OSharp.Demo.Dtos.Identity;
+using OSharp.Demo.Models.Identity;
+using OSharp.Utility;
+using OSharp.Utility.Data;
 using OSharp.Utility.Extensions;
+using OSharp.Utility.Filter;
 using OSharp.Web.Mvc.Binders;
 using OSharp.Web.Mvc.Security;
 using OSharp.Web.UI;
@@ -22,27 +27,40 @@ using OSharp.Web.UI;
 
 namespace OSharp.Demo.Web.Areas.Admin.Controllers
 {
-    public class RolesController : Controller
+    public class RolesController : AdminBaseController
     {
+        /// <summary>
+        /// 获取或设置 身份认证业务对象
+        /// </summary>
+        public IIdentityContract IdentityContract { get; set; }
+
         #region Ajax功能
 
         #region 获取数据
 
+        //id: 组织机构编号
         [AjaxOnly]
-        public ActionResult GridData()
+        public ActionResult GridData(int? id)
         {
-            List<object> data = new List<object>();
-            for (int i = 1; i <= 5; i++)
+            int total;
+            GridRequest request = new GridRequest(Request);
+            if (id.HasValue && id.Value > 0)
             {
-                var item = new { Id = i, Name = "角色" + i, Remark = "角色描述" + i, CreatedTime = DateTime.Now.AddMinutes(i) };
-                data.Add(item);
+                request.FilterGroup.Rules.Add(new FilterRule("Organization.Id", id.Value));
             }
-            return Json(new GridData<object>(data, data.Count), JsonRequestBehavior.AllowGet);
+            var datas = GetQueryData<Role, int>(IdentityContract.Roles, out total, request).Select(m => new
+            {
+                m.Id,
+                m.Name,
+                m.Remark,
+                m.IsAdmin,
+                m.IsLocked,
+                OrganizationId = m.Organization.Id,
+                OrganizationName = m.Organization.Name,
+                UserCount = m.Users.Count
+            });
+            return Json(new GridData<object>(datas, total), JsonRequestBehavior.AllowGet);
         }
-
-        #endregion
-
-        #region 验证数据
 
         #endregion
 
@@ -52,38 +70,30 @@ namespace OSharp.Demo.Web.Areas.Admin.Controllers
         [AjaxOnly]
         public ActionResult Add([ModelBinder(typeof(JsonBinder<RoleDto>))] ICollection<RoleDto> dtos)
         {
-            string[] names = dtos.Select(m => m.Name).ToArray();
-            AjaxResult result = new AjaxResult("角色“{0}”新增成功".FormatWith(names.ExpandAndToString()), AjaxResultType.Success);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            dtos.CheckNotNull("dtos" );
+            OperationResult result = IdentityContract.AddRoles(dtos.ToArray());
+            return Json(result.ToAjaxResult(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [AjaxOnly]
         public ActionResult Edit([ModelBinder(typeof(JsonBinder<RoleDto>))] ICollection<RoleDto> dtos)
         {
-            string[] names = dtos.Select(m => m.Name).ToArray();
-            AjaxResult result = new AjaxResult("角色“{0}”新增成功".FormatWith(names.ExpandAndToString()), AjaxResultType.Success);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            dtos.CheckNotNull("dtos" );
+            OperationResult result = IdentityContract.EditRoles(dtos.ToArray());
+            return Json(result.ToAjaxResult(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [AjaxOnly]
         public ActionResult Delete([ModelBinder(typeof(JsonBinder<int>))] ICollection<int> ids)
         {
-            AjaxResult result = new AjaxResult("{0} 个角色删除成功".FormatWith(ids.Count), AjaxResultType.Success);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            ids.CheckNotNull("ids" );
+            OperationResult result = IdentityContract.DeleteRoles(ids.ToArray());
+            return Json(result.ToAjaxResult(), JsonRequestBehavior.AllowGet);
         }
 
         #endregion
-
-        #endregion
-
-        #region 视图功能
-
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         #endregion
     }

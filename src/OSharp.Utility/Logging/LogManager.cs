@@ -1,4 +1,12 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="LogManager.cs" company="OSharp开源团队">
+//      Copyright (c) 2014-2015 OSharp. All rights reserved.
+//  </copyright>
+//  <last-editor>郭明锋</last-editor>
+//  <last-date>2015-03-22 20:33</last-date>
+// -----------------------------------------------------------------------
+
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,7 +78,7 @@ namespace OSharp.Utility.Logging
             Loggers[name] = logger;
             return logger;
         }
-         
+
         /// <summary>
         /// 获取指定类型的日志记录实例
         /// </summary>

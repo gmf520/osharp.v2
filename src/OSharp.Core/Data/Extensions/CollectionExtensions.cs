@@ -19,6 +19,9 @@ using OSharp.Utility.Filter;
 
 namespace OSharp.Core.Data.Extensions
 {
+    /// <summary>
+    /// 集合扩展辅助操作类
+    /// </summary>
     public static class CollectionExtensions
     {
         /// <summary>
@@ -81,8 +84,8 @@ namespace OSharp.Core.Data.Extensions
                 foreach (SortCondition sortCondition in sortConditions)
                 {
                     orderSource = count == 0
-                        ? QueryablePropertySorter<TEntity>.OrderBy(source, sortCondition.SortField, sortCondition.ListSortDirection)
-                        : QueryablePropertySorter<TEntity>.ThenBy(orderSource, sortCondition.SortField, sortCondition.ListSortDirection);
+                        ? CollectionPropertySorter<TEntity>.OrderBy(source, sortCondition.SortField, sortCondition.ListSortDirection)
+                        : CollectionPropertySorter<TEntity>.ThenBy(orderSource, sortCondition.SortField, sortCondition.ListSortDirection);
                     count++;
                 }
                 source = orderSource;

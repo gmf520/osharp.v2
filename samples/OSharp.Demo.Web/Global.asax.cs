@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -11,10 +12,8 @@ using Autofac.Integration.Mvc;
 using OSharp.Core;
 using OSharp.Core.Data;
 using OSharp.Core.Data.Entity;
-using OSharp.Core.Data.Entity.Migrations;
-using OSharp.Demo.Web.Dtos;
+using OSharp.Demo.Dtos;
 using OSharp.Demo.Web.Logging;
-using OSharp.Demo.Web.Services.Impl;
 using OSharp.Utility.Logging;
 
 
@@ -48,14 +47,16 @@ namespace OSharp.Demo.Web
             ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterGeneric(typeof(Repository<,>)).As(typeof(IRepository<,>));
             Type baseType = typeof(IDependency);
-            Assembly[] assemblies = Assembly.GetExecutingAssembly().GetReferencedAssemblies()
-                .Select(Assembly.Load).ToArray();
-            assemblies = assemblies.Union(new[] { Assembly.GetExecutingAssembly() }).ToArray();
+            string path = AppDomain.CurrentDomain.RelativeSearchPath;
+            Assembly[] assemblies = Directory.GetFiles(path, "*.dll").Select(m => Assembly.LoadFrom(m)).ToArray();
             builder.RegisterAssemblyTypes(assemblies)
                 .Where(type => baseType.IsAssignableFrom(type) && !type.IsAbstract)
-                .AsImplementedInterfaces().InstancePerLifetimeScope();//InstancePerLifetimeScope 保证生命周期基于请求
+                .AsSelf()   //自身服务，用于没有接口的类
+                .AsImplementedInterfaces()  //接口服务
+                .PropertiesAutowired()  //属性注入
+                .InstancePerLifetimeScope();    //保证生命周期基于请求
 
-            builder.RegisterControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
             builder.RegisterFilterProvider();
             IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
@@ -63,10 +64,9 @@ namespace OSharp.Demo.Web
 
         private static void DatabaseInitialize()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
+            string file = HttpContext.Current.Server.MapPath("bin/OSharp.Demo.Services.dll");
+            Assembly assembly = Assembly.LoadFrom(file);
             DatabaseInitializer.AddMapperAssembly(assembly);
-            CreateDatabaseIfNotExistsWithSeed.SeedActions.Add(new IdentitySeedAction());
-
             DatabaseInitializer.Initialize();
         }
 

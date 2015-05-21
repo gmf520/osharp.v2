@@ -43,14 +43,7 @@ namespace OSharp.Utility.Secutiry
         }
 
         /// <summary>
-        /// 获取 密钥
-        /// </summary>
-        public byte[] Key { get { return _key; } }
-
-        #region 实例方法
-
-        /// <summary>
-        /// 使用指定8位密码初始化一个<see cref="DesHelper"/>类的新实例
+        /// 使用指定8位或24位密码初始化一个<see cref="DesHelper"/>类的新实例
         /// </summary>
         public DesHelper(byte[] key)
         {
@@ -59,6 +52,13 @@ namespace OSharp.Utility.Secutiry
             _key = key;
             _isTriple = key.Length == 24;
         }
+
+        /// <summary>
+        /// 获取 密钥
+        /// </summary>
+        public byte[] Key { get { return _key; } }
+
+        #region 实例方法
 
         /// <summary>
         /// 加密字节数组
