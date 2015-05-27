@@ -67,6 +67,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\ComparisonHelper.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Secutiry\HashHelper.cs" />
     <Compile Include="Secutiry\RsaHelper.cs" />
     <Compile Include="Web\UserAgentHelper.cs" />
+    <Compile Include="Windows\PresentationExtensions.cs" />
     <Compile Include="Windows\RegistryBaseKey.cs" />
     <Compile Include="Windows\RegistryHelper.cs" />
     <Compile Include="Windows\SystemInfo.cs" />
