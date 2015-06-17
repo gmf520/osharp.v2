@@ -1,9 +1,9 @@
 ﻿// -----------------------------------------------------------------------
-//  <copyright file="IUser.cs" company="OSharp开源团队">
+//  <copyright file="IUserRoleMap.cs" company="OSharp开源团队">
 //      Copyright (c) 2014-2015 OSharp. All rights reserved.
 //  </copyright>
 //  <last-editor>郭明锋</last-editor>
-//  <last-date>2015-06-16 22:03</last-date>
+//  <last-date>2015-06-16 22:08</last-date>
 // -----------------------------------------------------------------------
 
 using System;
@@ -16,23 +16,23 @@ using System.Threading.Tasks;
 namespace OSharp.Core.Identity
 {
     /// <summary>
-    /// 用户接口，最小化用户信息
+    /// 用户角色映射接口
     /// </summary>
-    public interface IUser<out TKey>
+    public interface IUserRoleMap<out TKey, out TUserKey, out TRoleKey>
     {
         /// <summary>
-        /// 获取 角色编号
+        /// 获取 用户角色映射编号
         /// </summary>
         TKey Id { get; }
 
         /// <summary>
-        /// 获取 用户名
+        /// 获取 相关用户信息
         /// </summary>
-        string Name { get; }
+        IUser<TUserKey> User { get; }
 
         /// <summary>
-        /// 获取 用户昵称
+        /// 获取 相关角色信息
         /// </summary>
-        string NickName { get; }
+        IRole<TRoleKey> Role { get; }
     }
 }

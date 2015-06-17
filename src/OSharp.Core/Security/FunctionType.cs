@@ -1,9 +1,9 @@
 ﻿// -----------------------------------------------------------------------
-//  <copyright file="IUser.cs" company="OSharp开源团队">
+//  <copyright file="FunctionType.cs" company="OSharp开源团队">
 //      Copyright (c) 2014-2015 OSharp. All rights reserved.
 //  </copyright>
 //  <last-editor>郭明锋</last-editor>
-//  <last-date>2015-06-16 22:03</last-date>
+//  <last-date>2015-06-17 9:11</last-date>
 // -----------------------------------------------------------------------
 
 using System;
@@ -13,26 +13,26 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace OSharp.Core.Identity
+namespace OSharp.Core.Security
 {
     /// <summary>
-    /// 用户接口，最小化用户信息
+    /// 表示功能访问类型的枚举
     /// </summary>
-    public interface IUser<out TKey>
+    public enum FunctionType
     {
         /// <summary>
-        /// 获取 角色编号
+        /// 匿名用户可访问
         /// </summary>
-        TKey Id { get; }
+        Anonymouse = 0,
 
         /// <summary>
-        /// 获取 用户名
+        /// 登录用户可访问
         /// </summary>
-        string Name { get; }
+        Logined = 1,
 
         /// <summary>
-        /// 获取 用户昵称
+        /// 指定角色可访问
         /// </summary>
-        string NickName { get; }
+        RoleRestrain = 2
     }
 }

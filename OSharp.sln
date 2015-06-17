@@ -37,7 +37,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{95964771-8
 	ProjectSection(SolutionItems) = preProject
 		docs\OSharp开发框架架构示图.png = docs\OSharp开发框架架构示图.png
 		docs\OSharp开发框架架构示图.vsd = docs\OSharp开发框架架构示图.vsd
-		docs\日志模块示图.vsd = docs\日志模块示图.vsd
+		docs\OSharp日志模块示图.png = docs\OSharp日志模块示图.png
+		docs\OSharp日志模块示图.vsd = docs\OSharp日志模块示图.vsd
+		docs\OSharp权限系统设计.png = docs\OSharp权限系统设计.png
+		docs\OSharp权限系统设计.vsd = docs\OSharp权限系统设计.vsd
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A7EB79BC-6AFA-4299-9E53-A7F5436E651D}"
@@ -52,6 +55,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Demo.Services", "samples\OSharp.Demo.Services\OSharp.Demo.Services.csproj", "{7D538B40-8C72-42FF-BDC6-135F22230EEE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Demo.Consoles", "samples\OSharp.Demo.Consoles\OSharp.Demo.Consoles.csproj", "{40B1620B-9248-4965-AB4A-4DE71B1BFC5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Core.Identity", "src\OSharp.Core.Identity\OSharp.Core.Identity.csproj", "{01B919D7-443D-4348-9F2A-FD9545966AED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Core.Security", "src\OSharp.Core.Security\OSharp.Core.Security.csproj", "{E1D177F2-C41C-4D4A-99B7-B8B913609C50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +122,14 @@ Global
 		{40B1620B-9248-4965-AB4A-4DE71B1BFC5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40B1620B-9248-4965-AB4A-4DE71B1BFC5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40B1620B-9248-4965-AB4A-4DE71B1BFC5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01B919D7-443D-4348-9F2A-FD9545966AED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01B919D7-443D-4348-9F2A-FD9545966AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01B919D7-443D-4348-9F2A-FD9545966AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01B919D7-443D-4348-9F2A-FD9545966AED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1D177F2-C41C-4D4A-99B7-B8B913609C50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1D177F2-C41C-4D4A-99B7-B8B913609C50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1D177F2-C41C-4D4A-99B7-B8B913609C50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1D177F2-C41C-4D4A-99B7-B8B913609C50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -125,6 +140,8 @@ Global
 		{875020AE-A401-4A79-97FD-27817A59EE12} = {0CD943B7-DF8C-444B-A341-93894542B8CF}
 		{F7C67C95-FACB-4160-9A88-CB738E65E034} = {0CD943B7-DF8C-444B-A341-93894542B8CF}
 		{D58A373C-1A9C-4BF7-833D-427E4AEF8502} = {0CD943B7-DF8C-444B-A341-93894542B8CF}
+		{01B919D7-443D-4348-9F2A-FD9545966AED} = {0CD943B7-DF8C-444B-A341-93894542B8CF}
+		{E1D177F2-C41C-4D4A-99B7-B8B913609C50} = {0CD943B7-DF8C-444B-A341-93894542B8CF}
 		{F22F76D3-32A2-43E2-A8A6-910BA8F3B877} = {9B597CC9-7726-4D9D-A79F-78B5254B0C97}
 		{4ADB8868-99C0-4AAB-BD6D-FFFF30D957EC} = {9B597CC9-7726-4D9D-A79F-78B5254B0C97}
 		{C1192CE1-AEFF-454A-963F-A0C5EC10089E} = {875020AE-A401-4A79-97FD-27817A59EE12}
