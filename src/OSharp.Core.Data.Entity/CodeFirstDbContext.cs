@@ -148,7 +148,7 @@ namespace OSharp.Core.Data.Entity
                 int count = base.SaveChanges();
                 if (count > 0 && DataLoggingEnabled)
                 {
-                    Logger.Info(logs);
+                    Logger.Info(logs, true);
                 }
                 TransactionEnabled = false;
                 return count;
@@ -220,7 +220,7 @@ namespace OSharp.Core.Data.Entity
                 int count = await base.SaveChangesAsync();
                 if (count > 0 && DataLoggingEnabled)
                 {
-                    Logger.Info(logs);
+                    Logger.Info(logs, true);
                 }
                 TransactionEnabled = false;
                 return count;

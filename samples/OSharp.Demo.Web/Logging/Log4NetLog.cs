@@ -44,7 +44,7 @@ namespace OSharp.Demo.Web.Logging
         /// <param name="level">日志输出级别</param>
         /// <param name="message">日志消息</param>
         /// <param name="exception">日志异常</param>
-        protected override void Write(LogLevel level, object message, Exception exception)
+        protected override void Write(LogLevel level, object message, Exception exception, bool isData = false)
         {
             Level log4NetLevel = GetLevel(level);
             _logger.Log(DeclaringType, log4NetLevel, message, exception);
@@ -80,8 +80,16 @@ namespace OSharp.Demo.Web.Logging
         /// </summary>
         public override bool IsFatalEnabled { get { return _logger.IsEnabledFor(Level.Fatal); } }
 
+        public override bool IsDataLogging
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         #endregion
-        
+
         private static Level GetLevel(LogLevel level)
         {
             switch (level)
@@ -106,5 +114,6 @@ namespace OSharp.Demo.Web.Logging
                     return Level.Off;
             }
         }
+        
     }
 }

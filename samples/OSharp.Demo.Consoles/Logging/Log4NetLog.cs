@@ -78,13 +78,21 @@ namespace OSharp.Demo.Consoles.Logging
             get { return _logger.IsEnabledFor(Level.Fatal); }
         }
 
+        public override bool IsDataLogging
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// 获取日志输出处理委托实例
         /// </summary>
         /// <param name="level">日志输出级别</param>
         /// <param name="message">日志消息</param>
         /// <param name="exception">日志异常</param>
-        protected override void Write(LogLevel level, object message, Exception exception)
+        protected override void Write(LogLevel level, object message, Exception exception, bool isData = false)
         {
             Level level1 = GetLevel(level);
             _logger.Log(DeclaringType, level1, message, exception);

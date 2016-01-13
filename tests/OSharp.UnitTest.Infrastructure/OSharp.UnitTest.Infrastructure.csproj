@@ -73,12 +73,6 @@
     <Fakes Include="Fakes\mscorlib.fakes" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OSharp.Utility\OSharp.Utility.csproj">
-      <Project>{946E0A0A-8280-46B3-893E-1B00A554CCAB}</Project>
-      <Name>OSharp.Utility</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="OSharp.Keys.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

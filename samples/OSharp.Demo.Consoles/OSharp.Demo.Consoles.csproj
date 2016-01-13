@@ -56,9 +56,9 @@
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="OSharp.Core">
       <HintPath>..\..\packages\OSharp.Core.2.0.13\lib\net45\OSharp.Core.dll</HintPath>
@@ -66,8 +66,9 @@
     <Reference Include="OSharp.Core.Data.Entity">
       <HintPath>..\..\packages\OSharp.Core.Data.Entity.2.0.13\lib\net45\OSharp.Core.Data.Entity.dll</HintPath>
     </Reference>
-    <Reference Include="OSharp.Utility">
-      <HintPath>..\..\packages\OSharp.Utility.2.0.10\lib\net40\OSharp.Utility.dll</HintPath>
+    <Reference Include="OSharp.Utility, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e7429fb96767d50d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\OSharp.Utility.3.4.6.1\lib\net40\OSharp.Utility.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />

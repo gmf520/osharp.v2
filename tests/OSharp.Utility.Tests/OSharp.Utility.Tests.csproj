@@ -81,10 +81,6 @@
     <Compile Include="UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OSharp.Utility\OSharp.Utility.csproj">
-      <Project>{946e0a0a-8280-46b3-893e-1b00a554ccab}</Project>
-      <Name>OSharp.Utility</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OSharp.UnitTest.Infrastructure\OSharp.UnitTest.Infrastructure.csproj">
       <Project>{f22f76d3-32a2-43e2-a8a6-910ba8f3b877}</Project>
       <Name>OSharp.UnitTest.Infrastructure</Name>
