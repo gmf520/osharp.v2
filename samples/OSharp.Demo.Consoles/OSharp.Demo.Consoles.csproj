@@ -60,11 +60,13 @@
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="OSharp.Core">
-      <HintPath>..\..\packages\OSharp.Core.2.0.13\lib\net45\OSharp.Core.dll</HintPath>
+    <Reference Include="OSharp.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e7429fb96767d50d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\OSharp.Core.2.1.3\lib\net45\OSharp.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="OSharp.Core.Data.Entity">
-      <HintPath>..\..\packages\OSharp.Core.Data.Entity.2.0.13\lib\net45\OSharp.Core.Data.Entity.dll</HintPath>
+    <Reference Include="OSharp.Core.Data.Entity, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e7429fb96767d50d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\OSharp.Core.Data.Entity.2.1.3\lib\net45\OSharp.Core.Data.Entity.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="OSharp.Utility, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e7429fb96767d50d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\OSharp.Utility.3.4.6.1\lib\net40\OSharp.Utility.dll</HintPath>
