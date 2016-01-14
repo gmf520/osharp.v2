@@ -23,48 +23,47 @@ namespace OSharp.Core.Caching
     /// </summary>
     public static class CacheManager
     {
-        private static readonly object LockObj = new object();
         private static readonly ConcurrentDictionary<string, ICache> Cachers;
+        internal static readonly ICacheProvider[] Providers = new ICacheProvider[2];
 
         static CacheManager()
         {
             Cachers = new ConcurrentDictionary<string, ICache>();
-            CacheProviders = new List<ICacheProvider>();
         }
 
         /// <summary>
-        /// 获取或设置 缓存提供程序集合
-        /// </summary>
-        internal static ICollection<ICacheProvider> CacheProviders { get; private set; }
-
-        /// <summary>
-        /// 添加缓存提供者
+        /// 设置缓存提供者
         /// </summary>
         /// <param name="provider">缓存提供者</param>
-        public static void AddProvider(ICacheProvider provider)
+        /// <param name="level">缓存级别</param>
+        public static void SetProvider(ICacheProvider provider, CacheLevel level)
         {
-            lock (LockObj)
+            provider.CheckNotNull("provider");
+            switch (level)
             {
-                if (CacheProviders.Contains(provider))
-                {
-                    return;
-                }
-                CacheProviders.Add(provider);
+                case CacheLevel.First:
+                    Providers[0] = provider;
+                    break;
+                case CacheLevel.Second:
+                    Providers[1] = provider;
+                    break;
             }
         }
 
         /// <summary>
-        /// 移除缓存提供者
+        /// 移除指定级别的缓存提供者
         /// </summary>
-        public static void RemoveProvider(ICacheProvider provider)
+        /// <param name="level">缓存级别</param>
+        public static void RemoveProvider(CacheLevel level)
         {
-            lock (LockObj)
+            switch (level)
             {
-                if (!CacheProviders.Contains(provider))
-                {
-                    return;
-                }
-                CacheProviders.Remove(provider);
+                case CacheLevel.First:
+                    Providers[0] = null;
+                    break;
+                case CacheLevel.Second:
+                    Providers[1] = null;
+                    break;
             }
         }
 
@@ -87,10 +86,19 @@ namespace OSharp.Core.Caching
         /// <summary>
         /// 获取指定类型的缓存执行者实例
         /// </summary>
+        /// <param name="type">类型实例</param>
         public static ICache GetCacher(Type type)
         {
             type.CheckNotNull("type");
             return GetCacher(type.FullName);
+        }
+
+        /// <summary>
+        /// 获取指定类型的缓存执行者实例
+        /// </summary>
+        public static ICache GetCacher<T>()
+        {
+            return GetCacher(typeof(T));
         }
     }
 }

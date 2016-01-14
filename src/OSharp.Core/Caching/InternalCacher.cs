@@ -31,7 +31,7 @@ namespace OSharp.Core.Caching
         /// </summary>
         public InternalCacher(string region)
         {
-            _caches = CacheManager.CacheProviders.Where(m => m.Enabled).Select(m => m.GetCache(region)).ToList();
+            _caches = CacheManager.Providers.Where(m => m != null).Select(m => m.GetCache(region)).ToList();
             if (_caches.Count == 0)
             {
                 Logger.Warn(Resources.Caching_CacheNotInitialized);
@@ -67,7 +67,12 @@ namespace OSharp.Core.Caching
         /// <returns>获取的强类型数据</returns>
         public T Get<T>(string key)
         {
-            return (T)Get(key);
+            object value = Get(key);
+            if (value == null)
+            {
+                return default(T);
+            }
+            return (T)value;
         }
 
         /// <summary>

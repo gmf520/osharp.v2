@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caching\CacheBase.cs" />
+    <Compile Include="Caching\CacheLevel.cs" />
     <Compile Include="Caching\CacheManager.cs" />
     <Compile Include="Caching\InternalCacher.cs" />
     <Compile Include="Caching\ICache.cs" />
