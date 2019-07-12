@@ -67,12 +67,17 @@ namespace OSharp.Core.Caching
         /// <returns>获取的强类型数据</returns>
         public T Get<T>(string key)
         {
-            object value = Get(key);
-            if (value == null)
+            T value = default(T);
+            foreach (ICache cache in _caches)
             {
-                return default(T);
+                value = cache.Get<T>(key);
+                if (value != null)
+                {
+                    break;
+                }
             }
-            return (T)value;
+
+            return value;
         }
 
         /// <summary>
