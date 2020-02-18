@@ -18,6 +18,8 @@ namespace OSharp.Web.Http.Internal
         public const string IfUnmodifiedSince = "If-Unmodified-Since";
         public const string Vary = "Vary";
         public const string OSharpClientPublicKey = "OSharp_ClientPublicKey";
+        public const string OSharpClientPublicKey2 = "X-ClientPublicKey";
         public const string OSharpAuthenticationToken = "OSharp_AuthenticationToken";
+        public const string OSharpAuthenticationToken2 = "X-AuthenticationToken";
     }
 }

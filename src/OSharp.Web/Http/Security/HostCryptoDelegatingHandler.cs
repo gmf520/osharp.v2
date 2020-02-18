@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -68,7 +69,7 @@ namespace OSharp.Web.Http.Security
                 return base.SendAsync(request, cancellationToken);
             }
 
-            var result = DecryptRequest(request);
+            Task<HttpResponseMessage> result = DecryptRequest(request);
             if (result != null)
             {
                 return result;
@@ -79,11 +80,15 @@ namespace OSharp.Web.Http.Security
 
         private Task<HttpResponseMessage> DecryptRequest(HttpRequestMessage request)
         {
-            if (!request.Headers.Contains(HttpHeaderNames.OSharpClientPublicKey))
+            if (!request.Headers.TryGetValues(HttpHeaderNames.OSharpClientPublicKey2, out IEnumerable<string> values))
             {
-                return CreateResponseTask(request, HttpStatusCode.BadRequest, "在请求头中客户端公钥信息无法找到。");
+                if (!request.Headers.TryGetValues(HttpHeaderNames.OSharpClientPublicKey, out values))
+                {
+                    return CreateResponseTask(request, HttpStatusCode.BadRequest, "在请求头中客户端公钥信息无法找到。");
+                }
             }
-            string publicKey = request.Headers.GetValues(HttpHeaderNames.OSharpClientPublicKey).First();
+
+            string publicKey = values.First();
             _cryptor = new CommunicationCryptor(_privateKey, publicKey, _hashType);
 
             if (request.Content == null)

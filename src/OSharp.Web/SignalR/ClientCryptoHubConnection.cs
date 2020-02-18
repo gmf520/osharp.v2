@@ -82,7 +82,7 @@ namespace OSharp.Web.SignalR
             if (_cryptor == null)
             {
                 RsaHelper ownRsa = new RsaHelper();
-                Headers.Add(HttpHeaderNames.OSharpClientPublicKey, ownRsa.PublicKey);
+                Headers.Add(HttpHeaderNames.OSharpClientPublicKey2, ownRsa.PublicKey);
                 _cryptor = new CommunicationCryptor(ownRsa.PrivateKey, facePublicKey, hashType);
             }
         }

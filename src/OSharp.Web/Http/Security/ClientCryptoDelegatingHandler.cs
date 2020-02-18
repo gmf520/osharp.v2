@@ -52,7 +52,7 @@ namespace OSharp.Web.Http.Security
         /// <exception cref="T:System.ArgumentNullException"> <paramref name="request"/> 为 null。</exception>
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var result = EncryptRequest(request);
+            Task<HttpResponseMessage> result = EncryptRequest(request);
             if (result != null)
             {
                 return result;
@@ -62,10 +62,10 @@ namespace OSharp.Web.Http.Security
                 {
                     if (task.IsFaulted)
                     {
-                        var aggregateException = task.Exception;
+                        AggregateException aggregateException = task.Exception;
                         if (aggregateException != null)
                         {
-                            var requestException = aggregateException.InnerExceptions.FirstOrDefault(m => m is HttpRequestException);
+                            Exception requestException = aggregateException.InnerExceptions.FirstOrDefault(m => m is HttpRequestException);
                             if (requestException != null && requestException.InnerException is WebException)
                             {
                                 return request.CreateErrorResponse(HttpStatusCode.ServiceUnavailable, requestException.InnerException);
@@ -80,7 +80,7 @@ namespace OSharp.Web.Http.Security
 
         private Task<HttpResponseMessage> EncryptRequest(HttpRequestMessage request)
         {
-            request.Headers.Add(HttpHeaderNames.OSharpClientPublicKey, _clientPublicKey);
+            request.Headers.Add(HttpHeaderNames.OSharpClientPublicKey2, _clientPublicKey);
 
             if (request.Method == HttpMethod.Get || request.Content == null)
             {
@@ -142,7 +142,7 @@ namespace OSharp.Web.Http.Security
                     return request.CreateResponse(statusCode, message, MediaTypeConstants.ApplicationJson);
                 }
                 Exception exception = new Exception(message, ex);
-                var response = request.CreateErrorResponse(statusCode, new HttpError(exception, true));
+                HttpResponseMessage response = request.CreateErrorResponse(statusCode, new HttpError(exception, true));
                 return response;
             });
         }

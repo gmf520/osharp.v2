@@ -26,11 +26,15 @@ namespace OSharp.Web.Http.Handlers
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            if (!request.Headers.Contains(HttpHeaderNames.OSharpAuthenticationToken))
+            if (!request.Headers.TryGetValues(HttpHeaderNames.OSharpAuthenticationToken2, out IEnumerable<string> values))
             {
-                return base.SendAsync(request, cancellationToken);
+                if (!request.Headers.TryGetValues(HttpHeaderNames.OSharpAuthenticationToken, out values))
+                {
+                    return base.SendAsync(request, cancellationToken);
+                }
             }
-            string authenticationToken = request.Headers.GetValues(HttpHeaderNames.OSharpAuthenticationToken).First();
+
+            string authenticationToken = values.FirstOrDefault();
             if (!Authorize(authenticationToken))
             {
                 return CreateForbiddenResponseMessage(request);
